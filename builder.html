@@ -87,8 +87,9 @@
         .ref-box { break-inside: avoid; }
 
         /* Form styling */
-        .template-info-box { background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; border-left: 4px solid var(--accent-ats); }
-        .photo-rule { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; border: 1px solid currentColor;}
+        .template-info-box { background: #FFF5F6; border: 1px solid #fbc9cd; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; border-left: 4px solid #ee3c4d; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+        .template-info-box h2 { font-size: 1rem; font-weight: 700; color: #c0182a; margin: 0; }
+        .photo-rule { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.9rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; background: white; border: 1px solid #fbc9cd; color: #c0182a; }
         .form-section { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border-soft); }
         .form-section h3 { font-size: 1.1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; justify-content: space-between;}
         .form-group { margin-bottom: 1.25rem; }
@@ -222,10 +223,10 @@
             <div class="form-section" style="border:none"><h3>Rujukan (Optional) <button class="btn-add" onclick="app.addItem('ref')">+ Tambah Rujukan</button></h3><div id="refList"></div></div>
             
             <div class="lang-selector">
-                <span class="lang-label">🌐 Bahasa Output Resume:</span>
+                <span class="lang-label">Pilih Bahasa Resume untuk Muat Turun:</span>
                 <div class="lang-toggle">
-                    <button id="langBtnMS" class="lang-btn active" onclick="app.setOutputLang('ms')">🇲🇾 Bahasa Melayu</button>
-                    <button id="langBtnEN" class="lang-btn" onclick="app.setOutputLang('en')">🇬🇧 English</button>
+                    <button id="langBtnMS" class="lang-btn active" onclick="app.setOutputLang('ms')">Bahasa Melayu</button>
+                    <button id="langBtnEN" class="lang-btn" onclick="app.setOutputLang('en')">English</button>
                 </div>
             </div>
             <button class="btn btn-primary btn-large" style="width: 100%; border-radius: 50px;" onclick="app.triggerPDFModal()">Cetak &amp; Muat Turun (PDF)</button>
@@ -238,14 +239,14 @@
                 <div>
                     <span style="font-size:12px; color:#10B981; margin-right: 15px; font-weight:600;">🟢 Real-time Sync</span>
                     <select onchange="app.zoomCanvas(this.value)" style="padding:6px; border-radius:6px; border:1px solid #d1d5db; font-size:13px;">
-                        <option value="0.7">Zoom 70%</option>
-                        <option value="0.85" selected>Zoom 85%</option>
+                        <option value="0.7" selected>Zoom 70%</option>
+                        <option value="0.85">Zoom 85%</option>
                         <option value="1">Zoom 100%</option>
                     </select>
                 </div>
             </div>
             <div class="preview-canvas-wrapper" id="previewCanvasWrapper">
-                <div class="a4-scaler" id="a4Scaler" style="transform: scale(0.85);">
+                <div class="a4-scaler" id="a4Scaler" style="transform: scale(0.7);">
                     <div class="a4-canvas" id="liveCanvas"></div>
                 </div>
             </div>
@@ -302,7 +303,7 @@
 
                 const tempId = localStorage.getItem('selectedTemplate') || 'clean-minimalist';
                 const names = {
-                    'clean-minimalist': 'Clean Minimalist M-ATS',
+                    'clean-minimalist': 'Clean Minimalist',
                     'professional': 'Professional',
                     'fresh-grad': 'Fresh Graduate',
                     'kreatif': 'Kreatif',
