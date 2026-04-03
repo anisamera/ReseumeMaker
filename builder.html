@@ -98,10 +98,17 @@
         .form-control::placeholder { color: #9CA3AF; font-style: italic; }
         textarea.form-control::placeholder { color: #9CA3AF; font-style: italic; }
         .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        /* Phone field: country code + number */
-        .phone-field-group { display: flex; gap: 0.5rem; }
-        .phone-field-group select.form-control { flex: 0 0 110px; width: 110px; padding: 0.75rem 0.5rem; }
-        .phone-field-group input.form-control { flex: 1; }
+        /* Bullet textarea wrapper */
+        .textarea-wrapper { position: relative; }
+        .btn-bullet { position: absolute; top: 8px; right: 8px; background: #F3F4F6; color: #6B7280; border: 1px solid #D1D5DB; border-radius: 4px; font-size: 11px; font-weight: 600; padding: 3px 10px; cursor: pointer; z-index: 2; line-height: 1.6; transition: background 0.15s, color 0.15s; }
+        .btn-bullet:hover { background: #E5E7EB; color: #111827; }
+        /* Language output selector */
+        .lang-selector { background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 10px; padding: 0.85rem 1.25rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between; }
+        .lang-selector .lang-label { font-size: 0.85rem; font-weight: 600; color: #374151; }
+        .lang-toggle { display: flex; gap: 0.4rem; }
+        .lang-btn { padding: 0.35rem 1rem; border: 1px solid #D1D5DB; border-radius: 50px; background: white; font-size: 0.82rem; font-weight: 500; cursor: pointer; color: #6B7280; transition: all 0.2s; }
+        .lang-btn.active { background: #111827; color: white; border-color: #111827; font-weight: 600; }
+        .lang-btn:not(.active):hover { background: #F3F4F6; color: #374151; }
         
         .repeat-block { background: #F9FAFB; border: 1px dashed #D1D5DB; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; position: relative;}
         .btn-add { background: #E0E7FF; color: #4338CA; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
@@ -177,23 +184,7 @@
                     <div class="form-group"><label>Nama Penuh</label><input type="text" id="pName" class="form-control" oninput="app.update('personal', null, 'name', this.value)" placeholder="Ali Bin Bakar"></div>
                     <div class="form-group"><label>Jawatan / Headline</label><input type="text" id="pTitle" class="form-control" oninput="app.updateLocalJobTitle(this.value)" placeholder="Software Engineer"></div>
                     <div class="form-group"><label>Email</label><input type="email" id="pEmail" class="form-control" oninput="app.update('personal', null, 'email', this.value)" placeholder="contoh@email.com"></div>
-                    <div class="form-group"><label>No. Telefon</label>
-                        <div class="phone-field-group">
-                            <select id="pPhoneCode" class="form-control" onchange="app.updatePhone()">
-                                <option value="+60">🇲🇾 +60</option>
-                                <option value="+65">🇸🇬 +65</option>
-                                <option value="+62">🇮🇩 +62</option>
-                                <option value="+63">🇵🇭 +63</option>
-                                <option value="+66">🇹🇭 +66</option>
-                                <option value="+84">🇻🇳 +84</option>
-                                <option value="+91">🇮🇳 +91</option>
-                                <option value="+44">🇬🇧 +44</option>
-                                <option value="+61">🇦🇺 +61</option>
-                                <option value="+1">🇺🇸 +1</option>
-                            </select>
-                            <input type="tel" id="pPhoneNum" class="form-control" oninput="app.updatePhone()" placeholder="12-345 6789">
-                        </div>
-                    </div>
+                    <div class="form-group"><label>No. Telefon</label><input type="tel" id="pPhone" class="form-control" oninput="app.update('personal', null, 'phone', this.value)" placeholder="01140252543"></div>
                     <div class="form-group"><label>Lokasi</label><input type="text" id="pLocation" class="form-control" oninput="app.update('personal', null, 'location', this.value)" placeholder="Kuala Lumpur"></div>
                     <div class="form-group"><label>LinkedIn / Portfolio</label><input type="text" id="pLink" class="form-control" oninput="app.update('personal', null, 'link', this.value)" placeholder="linkedin.com/in/ali"></div>
                 </div>
@@ -202,7 +193,7 @@
             <!-- SUMMARY -->
             <div class="form-section">
                 <h3>Ringkasan Profesional <button class="btn-ai" type="button" onclick="app.generateAISummary()">✨ Jana dengan AI</button></h3>
-                <div class="form-group"><textarea class="form-control" id="summaryInput" oninput="app.update('summary', null, 'text', this.value)" onkeydown="app.handleBulletKeydown(event)" style="min-height:100px" placeholder="Ceritakan ringkasan kemahiran dan fokus kerjaya anda..."></textarea></div>
+                <div class="form-group"><div class="textarea-wrapper"><button class="btn-bullet" type="button" onclick="app.insertBullet(this)">• Bullet</button><textarea class="form-control" id="summaryInput" oninput="app.update('summary', null, 'text', this.value)" onkeydown="app.handleBulletKeydown(event)" style="min-height:100px; padding-top:34px;" placeholder="Ceritakan ringkasan kemahiran dan fokus kerjaya anda..."></textarea></div></div>
             </div>
 
             <!-- EXPERIENCE & EDU -->
@@ -230,7 +221,14 @@
             <div class="form-section"><h3>Bahasa (Optional) <button class="btn-add" onclick="app.addItem('lang')">+ Tambah Bahasa</button></h3><div id="langList"></div></div>
             <div class="form-section" style="border:none"><h3>Rujukan (Optional) <button class="btn-add" onclick="app.addItem('ref')">+ Tambah Rujukan</button></h3><div id="refList"></div></div>
             
-            <button class="btn btn-primary btn-large" style="width: 100%; margin-top:2rem; border-radius: 50px;" onclick="app.triggerPDFModal()">Cetak & Muat Turun (PDF)</button>
+            <div class="lang-selector">
+                <span class="lang-label">🌐 Bahasa Output Resume:</span>
+                <div class="lang-toggle">
+                    <button id="langBtnMS" class="lang-btn active" onclick="app.setOutputLang('ms')">🇲🇾 Bahasa Melayu</button>
+                    <button id="langBtnEN" class="lang-btn" onclick="app.setOutputLang('en')">🇬🇧 English</button>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-large" style="width: 100%; border-radius: 50px;" onclick="app.triggerPDFModal()">Cetak &amp; Muat Turun (PDF)</button>
         </div>
 
         <!-- PREVIEW AREA -->
@@ -270,7 +268,8 @@
     <script>
         const app = {
             state: {
-                personal: { name: '', title: '', email: '', phoneCode: '+60', phoneNum: '', phone: '', location: '', link: '', photo: null },
+                personal: { name: '', title: '', email: '', phone: '', location: '', link: '', photo: null },
+                outputLang: 'ms',
                 summary: { text: '' },
                 experience: [],
                 education: [],
@@ -287,14 +286,14 @@
                 document.getElementById('pName').value = this.state.personal.name || '';
                 document.getElementById('pTitle').value = this.state.personal.title || '';
                 document.getElementById('pEmail').value = this.state.personal.email || '';
-                // Phone: hydrate code + num
-                const storedCode = this.state.personal.phoneCode || '+60';
-                const storedNum = this.state.personal.phoneNum || '';
-                document.getElementById('pPhoneCode').value = storedCode;
-                document.getElementById('pPhoneNum').value = storedNum;
+                document.getElementById('pPhone').value = this.state.personal.phone || '';
                 document.getElementById('pLocation').value = this.state.personal.location || '';
                 document.getElementById('pLink').value = this.state.personal.link || '';
                 document.getElementById('summaryInput').value = this.state.summary.text || '';
+                // Hydrate language toggle
+                const ol = this.state.outputLang || 'ms';
+                document.getElementById('langBtnMS').classList.toggle('active', ol === 'ms');
+                document.getElementById('langBtnEN').classList.toggle('active', ol === 'en');
                 
                 if(this.state.personal.photo) {
                     document.getElementById('photoPreviewBox').style.backgroundImage = `url(${this.state.personal.photo})`;
@@ -321,6 +320,9 @@
                     photoWrap.style.display = 'flex';
                     document.getElementById('uiPhotoRule').innerText = "Sokong Saiz Pasport: 3.5cm x 4.5cm";
                 }
+                // Ensure at least 1 experience and 1 education box always visible
+                if (!this.state.experience.length) this.state.experience.push({ id: Date.now(), title: '', company: '', start: '', end: '', desc: '' });
+                if (!this.state.education.length) this.state.education.push({ id: Date.now() + 1, institution: '', degree: '', year: '', cgpa: '', desc: '' });
                 this.renderRepeatViews();
                 this.renderSkills();
                 this.updateAISuggestions();
@@ -337,15 +339,22 @@
                 if(ls) {
                     try { this.state = JSON.parse(ls); } catch(e) {}
                 } else {
-                    // Default mockup if totally fresh
                     this.state = {
-                        personal: { name: '', title: '', email: '', phoneCode: '+60', phoneNum: '', phone: '', location: '', link: '', photo: null },
+                        personal: { name: '', title: '', email: '', phone: '', location: '', link: '', photo: null },
+                        outputLang: 'ms',
                         summary: { text: '' },
                         experience: [],
                         education: [],
                         skills: { hard: [], soft: [] },
                         cert: [], lang: [], ref: []
                     };
+                }
+                // Migrate old phone format if user has stored data
+                if (!this.state.outputLang) this.state.outputLang = 'ms';
+                if (this.state.personal.phoneCode) {
+                    this.state.personal.phone = this.state.personal.phone || '';
+                    delete this.state.personal.phoneCode;
+                    delete this.state.personal.phoneNum;
                 }
             },
             
@@ -382,13 +391,18 @@
 
             // AI SUMMARY
             generateAISummary() {
-                const title = this.state.personal.title || 'Profesional';
+                const rawTitle = this.state.personal.title || 'Profesional';
+                // Normalize title to title case (avoid all-caps input being inserted mid-sentence)
+                const title = rawTitle.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
                 const s = [...this.state.skills.hard, ...this.state.skills.soft];
-                const templates = [
-                    `Seorang ${title} yang berdedikasi mencari peluang untuk memanfaatkan kemahiran dalam ${s.slice(0,2).join(', ')}. Berpengalaman dalam menghasilkan output kerja yang berkualiti, fokus pada penyelesaian masalah dan pencapaian optimum syarikat.`,
-                    `Profil profesional sebagai ${title} dengan kecekapan analitikal yang tinggi. Mahir mengendalikan pengurusan dalam ${s.slice(0,3).join(', ')}. Bersedia memacu kejayaan operasi dengan rekod prestasi cemerlang dan kemampuan adaptasi yang pantas.`
+                const skillList = s.length ? s.slice(0, 3).join(', ') : 'pelbagai bidang';
+                const skillTwo = s.length ? s.slice(0, 2).join(', ') : 'bidang berkaitan';
+                const summaryTemplates = [
+                    `Seorang ${title} yang berdedikasi dengan pengalaman dalam ${skillTwo}. Berpengalaman menghasilkan output kerja berkualiti tinggi, fokus pada penyelesaian masalah dan pencapaian matlamat organisasi.`,
+                    `Profesional berpengalaman sebagai ${title} dengan kecekapan dalam ${skillList}. Komited memacu kejayaan operasi dengan rekod prestasi cemerlang dan kemampuan adaptasi yang pantas dalam persekitaran kerja dinamik.`,
+                    `Individu yang bermotivasi tinggi dalam bidang ${title.toLowerCase()} dengan kemahiran kukuh dalam ${skillTwo}. Berorientasikan hasil dan mampu bekerja secara berdikari mahupun dalam pasukan.`
                 ];
-                let randomRes = templates[Math.floor(Math.random() * templates.length)];
+                let randomRes = summaryTemplates[Math.floor(Math.random() * summaryTemplates.length)];
                 const btn = document.querySelector('.btn-ai'); btn.innerHTML = '⏳ Menjana...'; btn.disabled = true;
                 setTimeout(() => {
                     this.state.summary.text = randomRes; document.getElementById('summaryInput').value = randomRes;
@@ -421,13 +435,25 @@
                 }
             },
 
-            // PHONE COMBINE HELPER
-            updatePhone() {
-                const code = document.getElementById('pPhoneCode').value;
-                const num = document.getElementById('pPhoneNum').value.trim();
-                this.state.personal.phoneCode = code;
-                this.state.personal.phoneNum = num;
-                this.state.personal.phone = num ? `${code}-${num}` : '';
+            // INSERT BULLET INTO TEXTAREA
+            insertBullet(btn) {
+                const ta = btn.nextElementSibling;
+                const pos = ta.selectionStart || ta.value.length;
+                const val = ta.value;
+                const before = val.substring(0, pos);
+                const after = val.substring(pos);
+                const insert = (before === '' || before.endsWith('\n')) ? '• ' : '\n• ';
+                ta.value = before + insert + after;
+                ta.selectionStart = ta.selectionEnd = pos + insert.length;
+                ta.dispatchEvent(new Event('input'));
+                ta.focus();
+            },
+
+            // SET OUTPUT LANGUAGE
+            setOutputLang(lang) {
+                this.state.outputLang = lang;
+                document.getElementById('langBtnMS').classList.toggle('active', lang === 'ms');
+                document.getElementById('langBtnEN').classList.toggle('active', lang === 'en');
                 this.renderPreview();
                 this.saveData();
             },
@@ -486,7 +512,7 @@
                         <div class="form-group"><label>Mula</label><input type="text" class="form-control" value="${item.start}" placeholder="Mac 2021" oninput="app.update('experience', ${item.id}, 'start', this.value)"></div>
                         <div class="form-group"><label>Tamat</label><input type="text" class="form-control" value="${item.end}" placeholder="Kini / Dec 2022" oninput="app.update('experience', ${item.id}, 'end', this.value)"></div>
                     </div>
-                    <div class="form-group"><label>Huraian Kerja</label><textarea class="form-control" placeholder="Gunakan • untuk setiap tugasan" oninput="app.update('experience', ${item.id}, 'desc', this.value)" onkeydown="app.handleBulletKeydown(event)">${item.desc}</textarea></div>`);
+                    <div class="form-group"><label>Huraian Kerja</label><div class="textarea-wrapper"><button class="btn-bullet" type="button" onclick="app.insertBullet(this)">• Bullet</button><textarea class="form-control" placeholder="Gunakan • untuk setiap tugasan" style="padding-top:34px;" oninput="app.update('experience', ${item.id}, 'desc', this.value)" onkeydown="app.handleBulletKeydown(event)">${item.desc}</textarea></div></div>`);
                     
                 this.buildList('education', 'eduList', (item) => `
                     <div class="grid-2-col">
@@ -495,7 +521,7 @@
                         <div class="form-group"><label>Tahun</label><input type="text" class="form-control" value="${item.year}" oninput="app.update('education', ${item.id}, 'year', this.value)"></div>
                         <div class="form-group"><label>CGPA</label><input type="text" class="form-control" value="${item.cgpa}" oninput="app.update('education', ${item.id}, 'cgpa', this.value)"></div>
                     </div>
-                    <div class="form-group"><label>Huraian / Pencapaian (Optional)</label><textarea class="form-control" placeholder="• Dean List 3 Semester..." oninput="app.update('education', ${item.id}, 'desc', this.value)" onkeydown="app.handleBulletKeydown(event)">${item.desc}</textarea></div>`);
+                    <div class="form-group"><label>Huraian / Pencapaian (Optional)</label><div class="textarea-wrapper"><button class="btn-bullet" type="button" onclick="app.insertBullet(this)">• Bullet</button><textarea class="form-control" placeholder="• Dean List 3 Semester..." style="padding-top:34px;" oninput="app.update('education', ${item.id}, 'desc', this.value)" onkeydown="app.handleBulletKeydown(event)">${item.desc}</textarea></div></div>`);
 
                 this.buildList('cert', 'certList', (item) => `
                     <div class="grid-2-col">
@@ -503,7 +529,7 @@
                         <div class="form-group"><label>Penganjur</label><input type="text" class="form-control" value="${item.organizer}" oninput="app.update('cert', ${item.id}, 'organizer', this.value)"></div>
                         <div class="form-group"><label>Tahun</label><input type="text" class="form-control" value="${item.year}" oninput="app.update('cert', ${item.id}, 'year', this.value)"></div>
                     </div>
-                    <div class="form-group"><label>Huraian / Pencapaian</label><textarea class="form-control" oninput="app.update('cert', ${item.id}, 'desc', this.value)" onkeydown="app.handleBulletKeydown(event)" placeholder="• Menerima Anugerah Cemerlang...">${item.desc}</textarea></div>`);
+                    <div class="form-group"><label>Huraian / Pencapaian</label><div class="textarea-wrapper"><button class="btn-bullet" type="button" onclick="app.insertBullet(this)">• Bullet</button><textarea class="form-control" placeholder="• Menerima Anugerah Cemerlang..." style="padding-top:34px;" oninput="app.update('cert', ${item.id}, 'desc', this.value)" onkeydown="app.handleBulletKeydown(event)">${item.desc}</textarea></div></div>`);
 
                 this.buildList('lang', 'langList', (item) => `
                     <div class="grid-2-col">
@@ -545,10 +571,9 @@
             // LIVE CANVAS A4 RENDERING (Dynamic Engine)
             renderPreview() {
                 const tempId = localStorage.getItem('selectedTemplate') || 'clean-minimalist';
-                const htmlOutput = window.TemplateEngine.render(this.state, tempId);
+                const lang = this.state.outputLang || 'ms';
+                const htmlOutput = window.TemplateEngine.render(this.state, tempId, lang);
                 document.getElementById('liveCanvas').innerHTML = htmlOutput;
-                // Important: clear generic paddings if any theme overrides it heavily via external CSS scope,
-                // but the scoped style tags inside templates.js will handle everything isolatedly.
             },
 
             // SAFE PDF DOWNLOAD STATION

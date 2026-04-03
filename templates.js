@@ -26,7 +26,7 @@ window.TemplateEngine = {
     },
 
     // Theme 1: Clean Minimalist M-ATS (The Original Layout)
-    'clean-minimalist': function(d, contactStr) {
+    'clean-minimalist': function(d, contactStr, L) {
         return `
             <style>
                 .theme-clean { font-family: 'Inter', Arial, sans-serif; color: #1f2937; padding: 50px; background: white; }
@@ -56,19 +56,19 @@ window.TemplateEngine = {
                         <div class="cv-contact">${contactStr.join(' &nbsp;|&nbsp; ')}</div>
                     </div>
                 </div>
-                ${d.summary.text ? `<div class="cv-section"><div class="cv-section-title">RINGKASAN PROFESIONAL</div><div class="cv-desc">${d.summary.text}</div></div>` : ''}
-                ${d.experience.length ? `<div class="cv-section"><div class="cv-section-title">PENGALAMAN KERJA</div>${d.experience.map(x => `<div class="cv-item"><div class="cv-item-header"><div><span class="cv-item-title">${x.title}</span><div class="cv-item-sub">${x.company}</div></div><span class="cv-item-date">${x.start} ${x.end?'hingga ':''}${x.end}</span></div>${this.bullets(x.desc)}</div>`).join('')}</div>` : ''}
-                ${d.education.length ? `<div class="cv-section"><div class="cv-section-title">PENDIDIKAN</div>${d.education.map(x => `<div class="cv-item"><div class="cv-item-header"><div><span class="cv-item-title">${x.degree}</span><div class="cv-item-sub">${x.institution} ${x.cgpa ? '| CGPA: '+x.cgpa : ''}</div></div><span class="cv-item-date">${x.year}</span></div>${this.bullets(x.desc)}</div>`).join('')}</div>` : ''}
-                ${(d.skills.hard.length || d.skills.soft.length) ? `<div class="cv-section"><div class="cv-section-title">KEMAHIRAN UTAMA</div><div>${[...d.skills.hard, ...d.skills.soft].map(s => `<span class="cv-tag">${s}</span>`).join('')}</div></div>` : ''}
-                ${d.cert.length ? `<div class="cv-section"><div class="cv-section-title">SIJIL & KURSUS</div>${d.cert.map(x => `<div class="cv-item"><div class="cv-item-header"><div><span class="cv-item-title">${x.name}</span><div class="cv-item-sub">${x.organizer}</div></div><span class="cv-item-date">${x.year}</span></div>${this.bullets(x.desc)}</div>`).join('')}</div>` : ''}
-                ${d.lang.length ? `<div class="cv-section"><div class="cv-section-title">BAHASA</div><div>${d.lang.map(x => `<span class="cv-tag" style="background:transparent; border:none; padding:0; margin-right:15px;"><strong>${x.name}</strong> (${x.level})</span>`).join('')}</div></div>` : ''}
-                ${d.ref.length ? `<div class="cv-section"><div class="cv-section-title">RUJUKAN</div><div class="ref-grid">${d.ref.map(x => `<div><div class="cv-item-title" style="margin-bottom:4px;">${x.name}</div><div class="cv-desc" style="margin:0">${x.pos}<br>${x.company}<br>TEL: ${x.phone}</div></div>`).join('')}</div></div>` : ''}
+                ${d.summary.text ? `<div class="cv-section"><div class="cv-section-title">${L.SUMMARY}</div><div class="cv-desc">${d.summary.text}</div></div>` : ''}
+                ${d.experience.length ? `<div class="cv-section"><div class="cv-section-title">${L.EXPERIENCE}</div>${d.experience.map(x => `<div class="cv-item"><div class="cv-item-header"><div><span class="cv-item-title">${x.title}</span><div class="cv-item-sub">${x.company}</div></div><span class="cv-item-date">${x.start} ${x.end?'hingga ':''}${x.end}</span></div>${this.bullets(x.desc)}</div>`).join('')}</div>` : ''}
+                ${d.education.length ? `<div class="cv-section"><div class="cv-section-title">${L.EDUCATION}</div>${d.education.map(x => `<div class="cv-item"><div class="cv-item-header"><div><span class="cv-item-title">${x.degree}</span><div class="cv-item-sub">${x.institution} ${x.cgpa ? '| CGPA: '+x.cgpa : ''}</div></div><span class="cv-item-date">${x.year}</span></div>${this.bullets(x.desc)}</div>`).join('')}</div>` : ''}
+                ${(d.skills.hard.length || d.skills.soft.length) ? `<div class="cv-section"><div class="cv-section-title">${L.SKILLS}</div><div>${[...d.skills.hard, ...d.skills.soft].map(s => `<span class="cv-tag">${s}</span>`).join('')}</div></div>` : ''}
+                ${d.cert.length ? `<div class="cv-section"><div class="cv-section-title">${L.CERT}</div>${d.cert.map(x => `<div class="cv-item"><div class="cv-item-header"><div><span class="cv-item-title">${x.name}</span><div class="cv-item-sub">${x.organizer}</div></div><span class="cv-item-date">${x.year}</span></div>${this.bullets(x.desc)}</div>`).join('')}</div>` : ''}
+                ${d.lang.length ? `<div class="cv-section"><div class="cv-section-title">${L.LANG}</div><div>${d.lang.map(x => `<span class="cv-tag" style="background:transparent; border:none; padding:0; margin-right:15px;"><strong>${x.name}</strong> (${x.level})</span>`).join('')}</div></div>` : ''}
+                ${d.ref.length ? `<div class="cv-section"><div class="cv-section-title">${L.REF}</div><div class="ref-grid">${d.ref.map(x => `<div><div class="cv-item-title" style="margin-bottom:4px;">${x.name}</div><div class="cv-desc" style="margin:0">${x.pos}<br>${x.company}<br>TEL: ${x.phone}</div></div>`).join('')}</div></div>` : ''}
             </div>
         `;
     },
 
     // Theme 2: Professional
-    'professional': function(d, contactStr) {
+    'professional': function(d, contactStr, L) {
         return `
             <style>
                 .theme-prof { font-family: 'Arial', sans-serif; background: white; display: flex; flex-direction: column; min-height: 100%; }
@@ -98,7 +98,7 @@ window.TemplateEngine = {
                 <div class="body">
                     <div class="left-col">
                         <div class="info-block">
-                            <h3 class="sec-title">Contact</h3>
+                            <h3 class="sec-title">${L.CONTACT}</h3>
                             ${d.personal.phone ? `<div class="contact-item">${d.personal.phone}</div>` : ''}
                             ${d.personal.email ? `<div class="contact-item">${this.emailLink(d.personal.email)}</div>` : ''}
                             ${d.personal.location ? `<div class="contact-item">${d.personal.location}</div>` : ''}
@@ -106,12 +106,12 @@ window.TemplateEngine = {
                         </div>
                         ${(d.skills.hard.length || d.skills.soft.length) ? `
                         <div class="info-block">
-                            <h3 class="sec-title">Kemahiran</h3>
+                            <h3 class="sec-title">${L.SKILLS_TC}</h3>
                             ${[...d.skills.hard, ...d.skills.soft].map(s => `<div class="skill-item">• ${s}</div>`).join('')}
                         </div>` : ''}
                         ${d.lang.length ? `
                         <div class="info-block">
-                            <h3 class="sec-title">Bahasa</h3>
+                            <h3 class="sec-title">${L.LANG_TC}</h3>
                             ${d.lang.map(x => `<div class="skill-item">${x.name} (${x.level})</div>`).join('')}
                         </div>` : ''}
                         ${d.personal.photo ? `<img src="${d.personal.photo}" style="width:100px; height:auto; border-radius:4px; border:1px solid #ccc; margin-top:20px;">` : ''}
@@ -119,27 +119,27 @@ window.TemplateEngine = {
                     <div class="right-col">
                         ${d.summary.text ? `
                         <div class="info-block">
-                            <h3 class="sec-title">Profil Diri</h3>
+                            <h3 class="sec-title">${L.PROFIL_TC}</h3>
                             <div class="desc">${d.summary.text}</div>
                         </div>` : ''}
                         ${d.experience.length ? `
                         <div class="info-block">
-                            <h3 class="sec-title">Pengalaman Kerja</h3>
+                            <h3 class="sec-title">${L.EXP_TC}</h3>
                             ${d.experience.map(x => `<div class="item"><div class="item-head"><div class="item-sub">${x.title}</div><div class="item-date">${x.start} - ${x.end}</div></div><div class="desc" style="margin-bottom:6px;">${x.company}</div>${this.bullets(x.desc)}</div>`).join('')}
                         </div>` : ''}
                         ${d.education.length ? `
                         <div class="info-block">
-                            <h3 class="sec-title">Pendidikan</h3>
+                            <h3 class="sec-title">${L.EDU_TC}</h3>
                             ${d.education.map(x => `<div class="item"><div class="item-head"><div class="item-sub">${x.degree}</div><div class="item-date">${x.year}</div></div><div class="desc">${x.institution} ${x.cgpa ? `<br>CGPA: ${x.cgpa}` : ''}</div>${this.bullets(x.desc)}</div>`).join('')}
                         </div>` : ''}
                         ${d.cert.length ? `
                         <div class="info-block">
-                            <h3 class="sec-title">Sijil & Kursus</h3>
+                            <h3 class="sec-title">${L.CERT_TC}</h3>
                             ${d.cert.map(x => `<div class="item"><div class="item-head"><div class="item-sub">${x.name}</div><div class="item-date">${x.year}</div></div><div class="desc">${x.organizer}</div></div>`).join('')}
                         </div>` : ''}
                         ${d.ref.length ? `
                         <div class="info-block">
-                            <h3 class="sec-title">Rujukan</h3>
+                            <h3 class="sec-title">${L.REF_TC}</h3>
                             <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
                                 ${d.ref.map(x => `<div class="desc"><strong>${x.name}</strong><br>${x.pos}<br>${x.company}<br>${x.phone}</div>`).join('')}
                             </div>
@@ -151,7 +151,7 @@ window.TemplateEngine = {
     },
 
     // Theme 3: Fresh Graduate
-    'fresh-grad': function(d, contactStr) {
+    'fresh-grad': function(d, contactStr, L) {
         return `
             <style>
                 .theme-fresh { font-family: 'Arial', sans-serif; background: white; padding: 50px; position: relative; }
@@ -180,25 +180,25 @@ window.TemplateEngine = {
                     <div class="title">${d.personal.title || 'Graduan Muda'}</div>
                     <div class="contact">${contactStr.join(' &nbsp;|&nbsp; ')}</div>
                 </div>
-                ${d.summary.text ? `<div class="sec"><div class="sec-title">OBJEKTIF / PROFIL</div><div class="desc">${d.summary.text}</div></div>` : ''}
+                ${d.summary.text ? `<div class="sec"><div class="sec-title">${L.OBJECTIVE}</div><div class="desc">${d.summary.text}</div></div>` : ''}
                 
-                ${d.education.length ? `<div class="sec"><div class="sec-title">PENDIDIKAN UTAMA</div>
+                ${d.education.length ? `<div class="sec"><div class="sec-title">${L.MAIN_EDU}</div>
                 ${d.education.map(x => `<div class="item"><div class="item-title">${x.degree}</div><div class="item-sub">${x.institution} | ${x.year}</div>${x.cgpa ? `<div class="item-blue">CGPA: ${x.cgpa}</div>` : ''}${this.bullets(x.desc)}</div>`).join('')}
                 </div>` : ''}
 
-                ${(d.skills.hard.length) ? `<div class="sec"><div class="sec-title">KEMAHIRAN TEKNIKAL</div><div class="skills-wrapper">${d.skills.hard.map(s => `<span class="skill-badge">${s}</span>`).join('')}</div></div>` : ''}
+                ${(d.skills.hard.length) ? `<div class="sec"><div class="sec-title">${L.TECH}</div><div class="skills-wrapper">${d.skills.hard.map(s => `<span class="skill-badge">${s}</span>`).join('')}</div></div>` : ''}
                 
-                ${(d.skills.soft.length) ? `<div class="sec"><div class="sec-title">KEMAHIRAN INSANIAH</div><div class="skills-wrapper" style="gap:5px;">${d.skills.soft.map(s => `<span style="font-size:12px; color:#444;">• ${s} &nbsp;&nbsp;</span>`).join('')}</div></div>` : ''}
+                ${(d.skills.soft.length) ? `<div class="sec"><div class="sec-title">${L.SOFT}</div><div class="skills-wrapper" style="gap:5px;">${d.skills.soft.map(s => `<span style="font-size:12px; color:#444;">• ${s} &nbsp;&nbsp;</span>`).join('')}</div></div>` : ''}
                 
-                ${d.cert.length ? `<div class="sec"><div class="sec-title">SIJIL & KURSUS</div>
+                ${d.cert.length ? `<div class="sec"><div class="sec-title">${L.CERT}</div>
                 ${d.cert.map(x => `<div class="item"><div class="item-title">${x.name}</div><div class="item-sub">${x.organizer} | ${x.year}</div></div>`).join('')}
                 </div>` : ''}
 
-                ${d.lang.length ? `<div class="sec"><div class="sec-title">BAHASA</div>
+                ${d.lang.length ? `<div class="sec"><div class="sec-title">${L.LANG}</div>
                 <div class="desc">${d.lang.map(x => `<b>${x.name}</b> (${x.level})`).join(' &nbsp;•&nbsp; ')}</div>
                 </div>` : ''}
 
-                ${d.ref.length ? `<div class="sec"><div class="sec-title">RUJUKAN</div>
+                ${d.ref.length ? `<div class="sec"><div class="sec-title">${L.REF}</div>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                     ${d.ref.map(x => `<div class="desc"><b>${x.name}</b><br>${x.pos}, ${x.company}<br>${x.phone}</div>`).join('')}
                 </div>
@@ -208,7 +208,7 @@ window.TemplateEngine = {
     },
 
     // Theme 4: Kreatif
-    'kreatif': function(d, contactStr) {
+    'kreatif': function(d, contactStr, L) {
         return `
             <style>
                 .theme-kreatif { font-family: 'Arial', sans-serif; background: #FAFAFA; display: flex; min-height: 100%; }
@@ -240,7 +240,7 @@ window.TemplateEngine = {
                     <div class="title">${d.personal.title || 'CREATIVE PROFESSIONAL'}</div>
                     
                     <div class="side-sec">
-                        <div class="side-title">CONTACT</div>
+                        <div class="side-title">${L.CONTACT}</div>
                         ${d.personal.phone ? `<div class="side-item">${d.personal.phone}</div>` : ''}
                         ${d.personal.email ? `<div class="side-item">${this.emailLink(d.personal.email)}</div>` : ''}
                         ${d.personal.link ? `<div class="side-item">${this.urlLink(d.personal.link)}</div>` : ''}
@@ -249,48 +249,48 @@ window.TemplateEngine = {
 
                     ${(d.skills.hard.length || d.skills.soft.length) ? `
                     <div class="side-sec">
-                        <div class="side-title">EXPERTISE</div>
+                        <div class="side-title">${L.EXPERTISE}</div>
                         ${[...d.skills.hard, ...d.skills.soft].map(s => `<div class="side-item" style="margin-bottom:12px;">${s}<div class="skill-bar"><div class="skill-fill" style="width:${Math.floor(Math.random() * (95 - 70 + 1) + 70)}%"></div></div></div>`).join('')}
                     </div>` : ''}
 
                     ${d.lang.length ? `
                     <div class="side-sec">
-                        <div class="side-title">BAHASA</div>
+                        <div class="side-title">${L.LANG}</div>
                         ${d.lang.map(x => `<div class="side-item">${x.name} (${x.level})</div>`).join('')}
                     </div>` : ''}
                 </div>
                 <div class="main">
                     ${d.summary.text ? `
                     <div class="main-sec">
-                        <div class="main-title">PROFIL DIRI</div>
+                        <div class="main-title">${L.PROFIL}</div>
                         <div class="main-line"></div>
                         <div class="desc">${d.summary.text}</div>
                     </div>` : ''}
 
                     ${d.experience.length ? `
                     <div class="main-sec">
-                        <div class="main-title">PENGALAMAN</div>
+                        <div class="main-title">${L.EXP_SHORT}</div>
                         <div class="main-line"></div>
                         ${d.experience.map(x => `<div class="item"><div class="item-title">${x.title} - ${x.company}</div><div class="item-date">${x.start} - ${x.end}</div>${this.bullets(x.desc)}</div>`).join('')}
                     </div>` : ''}
 
                 ${d.education.length ? `
                     <div class="main-sec">
-                        <div class="main-title">PENDIDIKAN</div>
+                        <div class="main-title">${L.EDUCATION}</div>
                         <div class="main-line"></div>
                         ${d.education.map(x => `<div class="item"><div class="item-title">${x.degree}</div><div class="desc">${x.institution} (${x.year})<br>${x.cgpa ? `CGPA: ${x.cgpa}` : ''}</div></div>`).join('')}
                     </div>` : ''}
 
                     ${d.cert.length ? `
                     <div class="main-sec">
-                        <div class="main-title">SIJIL & KURSUS</div>
+                        <div class="main-title">${L.CERT}</div>
                         <div class="main-line"></div>
                         ${d.cert.map(x => `<div class="item"><div class="item-title">${x.name}</div><div class="desc">${x.organizer} (${x.year})</div></div>`).join('')}
                     </div>` : ''}
 
                     ${d.ref.length ? `
                     <div class="main-sec">
-                        <div class="main-title">RUJUKAN</div>
+                        <div class="main-title">${L.REF}</div>
                         <div class="main-line"></div>
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
                             ${d.ref.map(x => `<div class="desc"><strong>${x.name}</strong><br>${x.pos}<br>${x.company}<br>TEL: ${x.phone}</div>`).join('')}
@@ -302,7 +302,7 @@ window.TemplateEngine = {
     },
 
     // Theme 5: Targeted
-    'targeted': function(d, contactStr) {
+    'targeted': function(d, contactStr, L) {
         return `
             <style>
                 .theme-target { font-family: 'Arial', sans-serif; background: white; padding: 50px; }
@@ -325,33 +325,33 @@ window.TemplateEngine = {
             <div class="theme-target">
                 <div class="header">
                     <div class="name">${d.personal.name || 'NAMA ANDA'}</div>
-                    <div class="target-job">TARGET JOB: ${d.personal.title || 'PROFESIONAL'}</div>
+                    <div class="target-job">${L.TARGET}: ${d.personal.title || 'PROFESIONAL'}</div>
                     <div class="contact">${contactStr.join(' | ')}</div>
                 </div>
-                ${d.summary.text ? `<div class="sec"><div class="sec-title">RINGKASAN KELAYAKAN</div><div class="desc">${d.summary.text}</div></div>` : ''}
+                ${d.summary.text ? `<div class="sec"><div class="sec-title">${L.QUALIFICATIONS}</div><div class="desc">${d.summary.text}</div></div>` : ''}
 
-                ${d.experience.length ? `<div class="sec"><div class="sec-title">PENGALAMAN RELEVAN</div>
+                ${d.experience.length ? `<div class="sec"><div class="sec-title">${L.REL_EXP}</div>
                 ${d.experience.map(x => `<div class="item"><div class="item-head"><div class="item-title">${x.title} - ${x.company}</div><div class="item-right">${x.start} - ${x.end}</div></div>${this.bullets(x.desc)}</div>`).join('')}
                 </div>` : ''}
 
-                ${(d.skills.hard.length) ? `<div class="sec"><div class="sec-title">KEMAHIRAN TEKNIKAL SPESIFIK</div>
-                <div class="tech-grid"><div class="tech-label">Teras Teknikal:</div><div class="tech-val">${d.skills.hard.join(', ')}</div></div>
-                ${d.skills.soft.length ? `<div class="tech-grid"><div class="tech-label">Kemahiran Asas:</div><div class="tech-val">${d.skills.soft.join(', ')}</div></div>` : ''}
+                ${(d.skills.hard.length) ? `<div class="sec"><div class="sec-title">${L.TECH_SKILLS}</div>
+                <div class="tech-grid"><div class="tech-label">${L.TECH_CORE}</div><div class="tech-val">${d.skills.hard.join(', ')}</div></div>
+                ${d.skills.soft.length ? `<div class="tech-grid"><div class="tech-label">${L.SKILL_BASE}</div><div class="tech-val">${d.skills.soft.join(', ')}</div></div>` : ''}
                 </div>` : ''}
 
-                ${d.education.length ? `<div class="sec"><div class="sec-title">PENDIDIKAN RELEVAN</div>
+                ${d.education.length ? `<div class="sec"><div class="sec-title">${L.REL_EDU}</div>
                 ${d.education.map(x => `<div><span style="font-size:11px; font-weight:bold; color:#333;">${x.degree}</span><br><span style="font-size:11px; color:#555;">${x.institution} | ${x.year} ${x.cgpa ? '| CGPA: '+x.cgpa : ''}</span></div>`).join('')}
                 </div>` : ''}
 
-                ${d.lang.length ? `<div class="sec"><div class="sec-title">BAHASA</div>
+                ${d.lang.length ? `<div class="sec"><div class="sec-title">${L.LANG}</div>
                 <div class="desc">${d.lang.map(x => `<b>${x.name}</b> (${x.level})`).join(', ')}</div>
                 </div>` : ''}
 
-                ${d.cert.length ? `<div class="sec"><div class="sec-title">SIJIL & KURSUS</div>
+                ${d.cert.length ? `<div class="sec"><div class="sec-title">${L.CERT}</div>
                 ${d.cert.map(x => `<div><span style="font-size:11px; font-weight:bold; color:#333;">${x.name}</span><br><span style="font-size:11px; color:#555;">${x.organizer} | ${x.year}</span></div>`).join('')}
                 </div>` : ''}
 
-                ${d.ref.length ? `<div class="sec"><div class="sec-title">RUJUKAN</div>
+                ${d.ref.length ? `<div class="sec"><div class="sec-title">${L.REF}</div>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                     ${d.ref.map(x => `<div class="desc"><b>${x.name}</b><br>${x.pos}, ${x.company}<br>${x.phone}</div>`).join('')}
                 </div>
@@ -361,7 +361,7 @@ window.TemplateEngine = {
     },
 
     // Theme 6: Federal / Government
-    'federal': function(d, contactStr) {
+    'federal': function(d, contactStr, L) {
         return `
             <style>
                 .theme-federal { font-family: 'Times New Roman', Times, serif; background: white; padding: 40px; border: 2px solid #ccc; min-height: 1000px; }
@@ -380,39 +380,39 @@ window.TemplateEngine = {
             <div class="theme-federal">
                 <div class="header">
                     <div class="name">${d.personal.name || 'NAMA ANDA PENGGUNA TERMA'}</div>
-                    <div class="contact">${d.personal.location || 'Alamat tidak diisi'}</div>
+                    <div class="contact">${d.personal.location || L.NO_ADDRESS}</div>
                     <div class="contact">${d.personal.phone || '000-00000'} | ${d.personal.email || 'email@email.com'}</div>
                 </div>
                 
                 <div class="sec">
-                    <div class="sec-title">MAKLUMAT PERIBADI (RINGKASAN)</div>
+                    <div class="sec-title">${L.PERSONAL}</div>
                     <div class="desc">${d.summary.text || 'Ringkasan profil...'}</div>
                     <div class="info-grid" style="margin-top:10px;">
-                        <div>Jawatan Dipohon: <b>${d.personal.title}</b></div>
-                        <div>Kewarganegaraan: <b>Malaysia</b></div>
+                        <div>${L.APPLIED} <b>${d.personal.title}</b></div>
+                        <div>${L.CITIZENSHIP} <b>Malaysia</b></div>
                     </div>
                 </div>
 
-                ${d.education.length ? `<div class="sec"><div class="sec-title">KELULUSAN AKADEMIK</div>
+                ${d.education.length ? `<div class="sec"><div class="sec-title">${L.ACADEMIC}</div>
                 ${d.education.map(x => `<div class="item"><div class="item-head"><div>${x.institution}</div><div>${x.year}</div></div><div class="item-title">${x.degree} (CGPA: ${x.cgpa || '-'})</div>${x.desc ? `<div class="desc">${x.desc}</div>`:''}</div>`).join('')}
                 </div>` : ''}
 
-                ${d.experience.length ? `<div class="sec"><div class="sec-title">PENGALAMAN KERJA / PERKHIDMATAN KHAS</div>
+                ${d.experience.length ? `<div class="sec"><div class="sec-title">${L.SERVICE}</div>
                 ${d.experience.map(x => `<div class="item"><div class="item-head"><div>${x.company}</div><div>${x.start} - ${x.end}</div></div><div class="item-title">Jawatan: ${x.title}</div>${this.bullets(x.desc)}</div>`).join('')}
                 </div>` : ''}
 
-                ${(d.skills.hard.length || d.skills.soft.length) ? `<div class="sec"><div class="sec-title">KEMAHIRAN / KOMPETENSI AWAM</div>
-                <div class="desc">Pengetahuan Spesifik: ${d.skills.hard.join(', ')}<br>Kelebihan Insaniah: ${d.skills.soft.join(', ')}</div></div>` : ''}
+                ${(d.skills.hard.length || d.skills.soft.length) ? `<div class="sec"><div class="sec-title">${L.COMPETENCY}</div>
+                <div class="desc">${L.KNOW_SPEC} ${d.skills.hard.join(', ')}<br>${L.ADVANTAGE} ${d.skills.soft.join(', ')}</div></div>` : ''}
 
-                ${d.cert.length ? `<div class="sec"><div class="sec-title">SIJIL RELEVAN</div>
+                ${d.cert.length ? `<div class="sec"><div class="sec-title">${L.REL_CERT}</div>
                 ${d.cert.map(x => `<div class="item"><div class="item-head"><div>${x.name}</div><div>${x.year}</div></div><div class="item-title">${x.organizer}</div></div>`).join('')}
                 </div>` : ''}
 
-                ${d.ref.length ? `<div class="sec"><div class="sec-title">MAKLUMAT RUJUKAN</div>
+                ${d.ref.length ? `<div class="sec"><div class="sec-title">${L.REF_INFO}</div>
                 ${d.ref.map(x => `<div class="desc"><b>${x.name}</b><br>${x.pos}<br>${x.company}<br>TEL: ${x.phone}</div>`).join('')}
                 </div>` : ''}
 
-                ${d.lang.length ? `<div class="sec"><div class="sec-title">BAHASA</div>
+                ${d.lang.length ? `<div class="sec"><div class="sec-title">${L.LANG}</div>
                 <div class="desc">${d.lang.map(x => `<b>${x.name}</b> (${x.level})`).join(', ')}</div>
                 </div>` : ''}
             </div>
@@ -420,17 +420,52 @@ window.TemplateEngine = {
     },
 
     // Main Renderer
-    render: function(stateData, selectedTemplateId) {
-        let contactStr = [];
+    render: function(stateData, selectedTemplateId, lang) {
+        lang = lang || 'ms';
         const d = stateData;
-        
+
+        // Build bilingual labels object
+        const L = lang === 'en' ? {
+            SUMMARY:'PROFESSIONAL SUMMARY', EXPERIENCE:'WORK EXPERIENCE', EDUCATION:'EDUCATION',
+            SKILLS:'KEY SKILLS', CERT:'CERTIFICATES & COURSES', LANG:'LANGUAGES', REF:'REFERENCES',
+            PROFIL:'PROFESSIONAL PROFILE', EXP_SHORT:'EXPERIENCE', OBJECTIVE:'OBJECTIVE / PROFILE',
+            TECH_SKILLS:'SPECIFIC TECHNICAL SKILLS', REL_EXP:'RELEVANT EXPERIENCE',
+            REL_EDU:'RELEVANT EDUCATION', TARGET:'TARGET JOB', MAIN_EDU:'MAIN EDUCATION',
+            TECH:'TECHNICAL SKILLS', SOFT:'SOFT SKILLS', QUALIFICATIONS:'QUALIFICATIONS SUMMARY',
+            PERSONAL:'PERSONAL INFORMATION (SUMMARY)', ACADEMIC:'ACADEMIC QUALIFICATIONS',
+            SERVICE:'WORK EXPERIENCE / SPECIAL SERVICE', COMPETENCY:'SKILLS / COMPETENCY',
+            REL_CERT:'RELEVANT CERTIFICATES', REF_INFO:'REFERENCE INFORMATION',
+            SKILLS_TC:'Skills', LANG_TC:'Languages', PROFIL_TC:'Professional Profile',
+            EXP_TC:'Work Experience', EDU_TC:'Education', CERT_TC:'Certificates & Courses', REF_TC:'References',
+            TECH_CORE:'Technical Core:', SKILL_BASE:'Core Skills:',
+            KNOW_SPEC:'Specific Knowledge:', ADVANTAGE:'Soft Advantages:',
+            CITIZENSHIP:'Citizenship:', APPLIED:'Position Applied:',
+            NO_ADDRESS:'Address not filled', EXPERTISE:'EXPERTISE', CONTACT:'Contact',
+        } : {
+            SUMMARY:'RINGKASAN PROFESIONAL', EXPERIENCE:'PENGALAMAN KERJA', EDUCATION:'PENDIDIKAN',
+            SKILLS:'KEMAHIRAN UTAMA', CERT:'SIJIL & KURSUS', LANG:'BAHASA', REF:'RUJUKAN',
+            PROFIL:'PROFIL DIRI', EXP_SHORT:'PENGALAMAN', OBJECTIVE:'OBJEKTIF / PROFIL',
+            TECH_SKILLS:'KEMAHIRAN TEKNIKAL SPESIFIK', REL_EXP:'PENGALAMAN RELEVAN',
+            REL_EDU:'PENDIDIKAN RELEVAN', TARGET:'TARGET JAWATAN', MAIN_EDU:'PENDIDIKAN UTAMA',
+            TECH:'KEMAHIRAN TEKNIKAL', SOFT:'KEMAHIRAN INSANIAH', QUALIFICATIONS:'RINGKASAN KELAYAKAN',
+            PERSONAL:'MAKLUMAT PERIBADI (RINGKASAN)', ACADEMIC:'KELULUSAN AKADEMIK',
+            SERVICE:'PENGALAMAN KERJA / PERKHIDMATAN KHAS', COMPETENCY:'KEMAHIRAN / KOMPETENSI AWAM',
+            REL_CERT:'SIJIL RELEVAN', REF_INFO:'MAKLUMAT RUJUKAN',
+            SKILLS_TC:'Kemahiran', LANG_TC:'Bahasa', PROFIL_TC:'Profil Diri',
+            EXP_TC:'Pengalaman Kerja', EDU_TC:'Pendidikan', CERT_TC:'Sijil & Kursus', REF_TC:'Rujukan',
+            TECH_CORE:'Teras Teknikal:', SKILL_BASE:'Kemahiran Asas:',
+            KNOW_SPEC:'Pengetahuan Spesifik:', ADVANTAGE:'Kelebihan Insaniah:',
+            CITIZENSHIP:'Kewarganegaraan:', APPLIED:'Jawatan Dipohon:',
+            NO_ADDRESS:'Alamat tidak diisi', EXPERTISE:'EXPERTISE', CONTACT:'Contact',
+        };
+
+        let contactStr = [];
         if(d.personal.phone) contactStr.push(d.personal.phone);
         if(d.personal.email) contactStr.push(this.emailLink(d.personal.email));
         if(d.personal.link) contactStr.push(this.urlLink(d.personal.link));
         if(d.personal.location) contactStr.push(d.personal.location);
 
-        // Fallback to minimal if missing
         const templateKey = this[selectedTemplateId] ? selectedTemplateId : 'clean-minimalist';
-        return this[templateKey](d, contactStr);
+        return this[templateKey](d, contactStr, L);
     }
 };
