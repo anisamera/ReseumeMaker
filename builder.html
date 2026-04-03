@@ -138,6 +138,20 @@
         .modal-actions .btn { border-radius: 50px; padding: 0.75rem 1.5rem; font-weight: 600; display: inline-flex; align-items: center; justify-content: center;}
         #modalPreviewWrapper { transform-origin: top center; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border-radius: 4px; overflow: hidden; background: white; flex-shrink: 0; margin-bottom: 4rem;}
 
+        /* SESSION POPUP */
+        #sessionPopup { display: none; position: fixed; inset: 0; background: rgba(17,24,39,0.65); z-index: 3000; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+        .session-card { background: white; border-radius: 20px; padding: 2.5rem 2rem; max-width: 420px; width: 100%; box-shadow: 0 30px 80px rgba(0,0,0,0.25); text-align: center; animation: popIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275); }
+        @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .session-icon { width: 58px; height: 58px; background: #FFF5F6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem auto; font-size: 1.6rem; border: 2px solid #fbc9cd; }
+        .session-card h2 { font-size: 1.2rem; font-weight: 800; color: #111827; margin-bottom: 0.5rem; }
+        .session-card p { font-size: 0.875rem; color: #6B7280; margin-bottom: 1.25rem; line-height: 1.55; }
+        .session-info { background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 1.5rem; text-align: left; font-size: 0.82rem; color: #374151; line-height: 1.6; }
+        .session-info strong { font-size: 0.9rem; color: #111827; display: block; margin-bottom: 2px; }
+        .btn-session-continue { width: 100%; padding: 0.85rem; border-radius: 50px; background: #ee3c4d; color: white; border: none; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-bottom: 0.65rem; transition: all 0.2s; box-shadow: 0 4px 12px rgba(238,60,77,0.3); }
+        .btn-session-continue:hover { background: #d32f2f; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(238,60,77,0.35); }
+        .btn-session-new { width: 100%; padding: 0.85rem; border-radius: 50px; background: white; color: #374151; border: 2px solid #E5E7EB; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-session-new:hover { background: #FEF2F2; border-color: #fbc9cd; color: #c0182a; }
+
         @media (max-width: 1024px) {
             .builder-container { flex-direction: column; }
             .form-area { max-width: 100%; }
@@ -253,6 +267,18 @@
         </div>
     </main>
 
+    <!-- SESSION RESUME POPUP -->
+    <div id="sessionPopup">
+        <div class="session-card">
+            <div class="session-icon">📄</div>
+            <h2>Resume lama ditemui!</h2>
+            <p>Anda ada resume yang belum selesai. Mahu teruskan atau mulakan resume baru dari awal?</p>
+            <div class="session-info" id="sessionResumeInfo">Memuatkan maklumat resume...</div>
+            <button class="btn-session-continue" onclick="app.continueOldResume()">Teruskan Resume Lama</button>
+            <button class="btn-session-new" onclick="app.startNewResume()">Buat Resume Baru</button>
+        </div>
+    </div>
+
     <!-- FULL SCREEN PDF MODAL -->
     <div id="pdfModal">
         <div class="modal-actions">
@@ -328,6 +354,8 @@
                 this.renderSkills();
                 this.updateAISuggestions();
                 this.renderPreview();
+                // Show session popup last, after everything is rendered
+                this.showSessionPopup();
             },
 
             // PERSISTENCE ENGINE (Save/Load)
@@ -365,6 +393,46 @@
                 statusStr.style.opacity = '1';
                 clearTimeout(this.saveTimer);
                 this.saveTimer = setTimeout(() => { statusStr.style.opacity = '0'; }, 3000);
+            },
+
+            // SESSION POPUP
+            showSessionPopup() {
+                const ls = localStorage.getItem(this.getStorageKey());
+                if (!ls) return;
+                try {
+                    const saved = JSON.parse(ls);
+                    const p = saved.personal || {};
+                    const hasData = p.name || p.email || p.title ||
+                        (saved.experience || []).some(e => e.title || e.company) ||
+                        (saved.education || []).some(e => e.degree || e.institution) ||
+                        (saved.summary && saved.summary.text);
+                    if (!hasData) return;
+
+                    const name = p.name || 'Tiada nama';
+                    const title = p.title || 'Tiada jawatan';
+                    const expCount = (saved.experience || []).filter(e => e.title || e.company).length;
+                    const eduCount = (saved.education || []).filter(e => e.degree || e.institution).length;
+                    const skillCount = ((saved.skills && saved.skills.hard) || []).length + ((saved.skills && saved.skills.soft) || []).length;
+                    document.getElementById('sessionResumeInfo').innerHTML =
+                        `<strong>${name}</strong>${title ? ' &mdash; ' + title : ''}
+                        <span style="color:#9CA3AF; font-size:0.78rem;">
+                            ${expCount ? expCount + ' pengalaman' : ''}
+                            ${eduCount ? ' &nbsp;&bull;&nbsp; ' + eduCount + ' pendidikan' : ''}
+                            ${skillCount ? ' &nbsp;&bull;&nbsp; ' + skillCount + ' kemahiran' : ''}
+                        </span>`;
+                    const popup = document.getElementById('sessionPopup');
+                    popup.style.display = 'flex';
+                } catch(e) { /* silently skip on parse error */ }
+            },
+            continueOldResume() {
+                document.getElementById('sessionPopup').style.display = 'none';
+                // Data already loaded — nothing else needed
+            },
+            startNewResume() {
+                if (!confirm('Anda pasti mahu mulakan resume baru? Data resume lama akan dipadam.')) return;
+                localStorage.removeItem(this.getStorageKey());
+                // Redirect to template selection so user can pick a fresh template
+                window.location.href = 'template-selection.html';
             },
             
             manualSave() {
