@@ -4,17 +4,25 @@ window.TemplateEngine = {
     // Utility to parse bullets
     bullets: function(text) {
         if(!text) return '';
-        // Split by lines and remove completely empty whitespace lines ONLY at the end
         let lines = text.split('\n');
-        // If it's just one line and no bullet, return as plain text
         if(lines.length === 1 && !lines[0].trim().startsWith('•')) return `<div class="cv-desc">${lines[0]}</div>`;
-        
-        // Otherwise, render as a list
         return `<div class="cv-desc"><ul>${lines.map(l => {
             let content = l.replace(/^•?/,'').trim();
-            // If the line had a bullet but no content, show a non-breaking space to keep the bullet visible in preview
             return `<li>${content || '&nbsp;'}</li>`;
         }).join('')}</ul></div>`;
+    },
+
+    // Utility to render email as mailto link
+    emailLink: function(email, cls) {
+        if(!email) return '';
+        return `<a href="mailto:${email}" style="color:inherit; text-decoration:underline;">${email}</a>`;
+    },
+
+    // Utility to render URL (LinkedIn/Portfolio) as https link
+    urlLink: function(url, cls) {
+        if(!url) return '';
+        const href = url.startsWith('http') ? url : `https://${url}`;
+        return `<a href="${href}" style="color:inherit; text-decoration:underline;" target="_blank">${url}</a>`;
     },
 
     // Theme 1: Clean Minimalist M-ATS (The Original Layout)
@@ -52,7 +60,7 @@ window.TemplateEngine = {
                 ${d.experience.length ? `<div class="cv-section"><div class="cv-section-title">PENGALAMAN KERJA</div>${d.experience.map(x => `<div class="cv-item"><div class="cv-item-header"><div><span class="cv-item-title">${x.title}</span><div class="cv-item-sub">${x.company}</div></div><span class="cv-item-date">${x.start} ${x.end?'hingga ':''}${x.end}</span></div>${this.bullets(x.desc)}</div>`).join('')}</div>` : ''}
                 ${d.education.length ? `<div class="cv-section"><div class="cv-section-title">PENDIDIKAN</div>${d.education.map(x => `<div class="cv-item"><div class="cv-item-header"><div><span class="cv-item-title">${x.degree}</span><div class="cv-item-sub">${x.institution} ${x.cgpa ? '| CGPA: '+x.cgpa : ''}</div></div><span class="cv-item-date">${x.year}</span></div>${this.bullets(x.desc)}</div>`).join('')}</div>` : ''}
                 ${(d.skills.hard.length || d.skills.soft.length) ? `<div class="cv-section"><div class="cv-section-title">KEMAHIRAN UTAMA</div><div>${[...d.skills.hard, ...d.skills.soft].map(s => `<span class="cv-tag">${s}</span>`).join('')}</div></div>` : ''}
-                ${d.cert.length ? `<div class="cv-section"><div class="cv-section-title">SIJIL & KURSUS</div>${d.cert.map(x => `<div class="cv-item"><div class="cv-item-header"><div><span class="cv-item-title">${x.name}</span><div class="cv-item-sub">${x.organizer}</div></div><span class="cv-item-date">${x.year}</span></div>${x.desc? `<div class="cv-desc">${x.desc}</div>`:''}</div>`).join('')}</div>` : ''}
+                ${d.cert.length ? `<div class="cv-section"><div class="cv-section-title">SIJIL & KURSUS</div>${d.cert.map(x => `<div class="cv-item"><div class="cv-item-header"><div><span class="cv-item-title">${x.name}</span><div class="cv-item-sub">${x.organizer}</div></div><span class="cv-item-date">${x.year}</span></div>${this.bullets(x.desc)}</div>`).join('')}</div>` : ''}
                 ${d.lang.length ? `<div class="cv-section"><div class="cv-section-title">BAHASA</div><div>${d.lang.map(x => `<span class="cv-tag" style="background:transparent; border:none; padding:0; margin-right:15px;"><strong>${x.name}</strong> (${x.level})</span>`).join('')}</div></div>` : ''}
                 ${d.ref.length ? `<div class="cv-section"><div class="cv-section-title">RUJUKAN</div><div class="ref-grid">${d.ref.map(x => `<div><div class="cv-item-title" style="margin-bottom:4px;">${x.name}</div><div class="cv-desc" style="margin:0">${x.pos}<br>${x.company}<br>TEL: ${x.phone}</div></div>`).join('')}</div></div>` : ''}
             </div>
@@ -92,9 +100,9 @@ window.TemplateEngine = {
                         <div class="info-block">
                             <h3 class="sec-title">Contact</h3>
                             ${d.personal.phone ? `<div class="contact-item">${d.personal.phone}</div>` : ''}
-                            ${d.personal.email ? `<div class="contact-item">${d.personal.email}</div>` : ''}
+                            ${d.personal.email ? `<div class="contact-item">${this.emailLink(d.personal.email)}</div>` : ''}
                             ${d.personal.location ? `<div class="contact-item">${d.personal.location}</div>` : ''}
-                            ${d.personal.link ? `<div class="contact-item">${d.personal.link}</div>` : ''}
+                            ${d.personal.link ? `<div class="contact-item">${this.urlLink(d.personal.link)}</div>` : ''}
                         </div>
                         ${(d.skills.hard.length || d.skills.soft.length) ? `
                         <div class="info-block">
@@ -234,8 +242,8 @@ window.TemplateEngine = {
                     <div class="side-sec">
                         <div class="side-title">CONTACT</div>
                         ${d.personal.phone ? `<div class="side-item">${d.personal.phone}</div>` : ''}
-                        ${d.personal.email ? `<div class="side-item">${d.personal.email}</div>` : ''}
-                        ${d.personal.link ? `<div class="side-item">${d.personal.link}</div>` : ''}
+                        ${d.personal.email ? `<div class="side-item">${this.emailLink(d.personal.email)}</div>` : ''}
+                        ${d.personal.link ? `<div class="side-item">${this.urlLink(d.personal.link)}</div>` : ''}
                         ${d.personal.location ? `<div class="side-item">${d.personal.location}</div>` : ''}
                     </div>
 
@@ -416,9 +424,9 @@ window.TemplateEngine = {
         let contactStr = [];
         const d = stateData;
         
-        if(d.personal.phone) contactStr.push(d.personal.phone); 
-        if(d.personal.email) contactStr.push(d.personal.email); 
-        if(d.personal.link) contactStr.push(d.personal.link); 
+        if(d.personal.phone) contactStr.push(d.personal.phone);
+        if(d.personal.email) contactStr.push(this.emailLink(d.personal.email));
+        if(d.personal.link) contactStr.push(this.urlLink(d.personal.link));
         if(d.personal.location) contactStr.push(d.personal.location);
 
         // Fallback to minimal if missing
