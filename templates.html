@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koleksi Template - Resume Maker</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="auth.js"></script>
+    <style>
+        .templates-page {
+            padding: 4rem 0 8rem;
+        }
+        .templates-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .templates-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .templates-header p {
+            color: var(--text-sec);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .template-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--border-soft);
+            background: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn.active {
+            background: var(--brand-red);
+            color: white;
+            border-color: var(--brand-red);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">R</div>
+            <div class="logo-text-group">
+                <span>Resume Maker</span>
+                <span class="logo-subtitle">Powered by Maukerja</span>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="templates.html" class="active" style="color: var(--brand-red);">Koleksi resume</a>
+            <a href="tools.html">Tools resume</a>
+            <a href="builder.html">Resume builder</a>
+            <a href="signup.html" class="btn btn-dark" id="authNavBtn">Sign up</a>
+        </div>
+    </nav>
+
+    <main class="container templates-page">
+        <div class="templates-header">
+            <h1>Pilih Design Resume Anda</h1>
+            <p>Koleksi template yang direka khas untuk melepasi sistem ATS dan memikat hati recruiter di Malaysia.</p>
+        </div>
+
+        <div class="template-filters">
+            <button class="filter-btn active">Semua</button>
+            <button class="filter-btn">Mesra ATS</button>
+            <button class="filter-btn">Professional</button>
+            <button class="filter-btn">Kreatif</button>
+            <button class="filter-btn">Student/Fresh Grad</button>
+        </div>
+
+        <div class="template-grid">
+            <!-- 1. Clean Minimalist -->
+            <div class="template-card" onclick="window.location.href='template-selection.html'">
+                <div class="card-image-box">
+                    <span class="badge-label badge-ats">FREE</span>
+                    <img src="https://via.placeholder.com/300x400?text=Clean+Minimalist" alt="Clean Minimalist">
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Clean Minimalist (M-ATS)</span>
+                </div>
+            </div>
+
+            <!-- 2. Professional -->
+            <div class="template-card locked">
+                <div class="card-image-box">
+                    <span class="badge-label" style="background:#6366F1">PREMIUM</span>
+                    <img src="https://via.placeholder.com/300x400?text=Professional" alt="Professional">
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Professional Executive</span>
+                </div>
+            </div>
+
+            <!-- 3. Fresh Grad -->
+            <div class="template-card locked">
+                <div class="card-image-box">
+                    <span class="badge-label" style="background:#F59E0B">PREMIUM</span>
+                    <img src="https://via.placeholder.com/300x400?text=Fresh+Grad" alt="Fresh Graduate">
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Fresh Graduate Specialist</span>
+                </div>
+            </div>
+
+            <!-- 4. Kreatif -->
+            <div class="template-card locked">
+                <div class="card-image-box">
+                    <span class="badge-label" style="background:#10B981">AKAN DATANG</span>
+                    <img src="https://via.placeholder.com/300x400?text=Kreatif" alt="Kreatif">
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Modern Creative</span>
+                </div>
+            </div>
+
+            <!-- 5. Targeted -->
+            <div class="template-card locked">
+                <div class="card-image-box">
+                    <span class="badge-label" style="background:#9CA3AF">AKAN DATANG</span>
+                    <img src="https://via.placeholder.com/300x400?text=Targeted" alt="Targeted">
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Targeted Industry</span>
+                </div>
+            </div>
+
+            <!-- 6. Federal -->
+            <div class="template-card locked">
+                <div class="card-image-box">
+                    <span class="badge-label" style="background:#9CA3AF">AKAN DATANG</span>
+                    <img src="https://via.placeholder.com/300x400?text=Federal" alt="Federal / Kerajaan">
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Format Kerajaan / SPA</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (Auth.isAuthenticated()) {
+                const navBtn = document.getElementById('authNavBtn');
+                navBtn.innerText = 'Bina Resume';
+                navBtn.href = 'builder.html';
+            }
+        });
+    </script>
+</body>
+</html>

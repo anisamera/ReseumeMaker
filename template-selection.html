@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Template - Resume Maker</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="auth.js"></script>
+
+</head>
+<body class="template-selection-page">
+    <nav class="navbar navbar-simple">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">R</div>
+            <div class="logo-text-group">
+                <span>Resume Maker</span>
+                <span class="logo-subtitle">Powered by Maukerja</span>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="btn btn-outline">Kembali</a>
+        </div>
+    </nav>
+
+    <main class="container template-container">
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <span class="step-text">Langkah 1 daripada 3 : Pilih Template</span>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" style="width: 33%;"></div>
+            </div>
+        </div>
+
+        <!-- Header Section -->
+        <header class="section-header">
+            <h1>Pilih template yang paling ngam dengan anda</h1>
+            <p>Pilih satu design yang sesuai dengan kerja yang anda nak mohon.</p>
+            <small>Jangan risau, isi resume tetap sama. Nanti boleh tukar design kalau nak.</small>
+        </header>
+
+        <!-- Template Grid -->
+        <div class="template-grid" id="templateGrid">
+            
+            <!-- 1. Clean Minimalist -->
+            <div class="template-card" data-template="clean-minimalist">
+                <div class="card-image-box">
+                    <span class="badge-label badge-ats">Mesra ATS</span>
+                    <svg viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="300" height="420" fill="white"/>
+                        
+                        <text x="20" y="35" font-family="Arial" font-size="14" font-weight="bold" fill="#111">AHMAD FAIZAL BIN OMAR</text>
+                        <text x="20" y="48" font-family="Arial" font-size="8" fill="#555">Senior Project Manager</text>
+                        <text x="20" y="58" font-family="Arial" font-size="6" fill="#777">ahmad.faizal@email.com | 012-345 6789 | linkedin.com/in/ahmadfaizal</text>
+                        <line x1="20" y1="68" x2="280" y2="68" stroke="#E5E7EB" stroke-width="1"/>
+                        
+                        <text x="20" y="82" font-family="Arial" font-size="9" font-weight="bold" fill="#111">PENGALAMAN KERJA</text>
+                        <text x="20" y="95" font-family="Arial" font-size="8" font-weight="bold" fill="#333">Senior Project Manager - TechCorp (2020 - Kini)</text>
+                        <circle cx="25" cy="105" r="1.5" fill="#555"/><text x="30" y="107" font-family="Arial" font-size="6" fill="#555">Menguruskan pasukan seramai 15 orang untuk projek perisian bernilai RM2J.</text>
+                        <circle cx="25" cy="115" r="1.5" fill="#555"/><text x="30" y="117" font-family="Arial" font-size="6" fill="#555">Meningkatkan kecekapan penghantaran projek sebanyak 30% menggunakan Agile.</text>
+                        <circle cx="25" cy="125" r="1.5" fill="#555"/><text x="30" y="127" font-family="Arial" font-size="6" fill="#555">Memantau bajet keseluruhan bernilai belasan juta secara strategik.</text>
+                        
+                        <text x="20" y="145" font-family="Arial" font-size="8" font-weight="bold" fill="#333">Project Executive - Bina Jaya Sdn Bhd (2016 - 2020)</text>
+                        <circle cx="25" cy="155" r="1.5" fill="#555"/><text x="30" y="157" font-family="Arial" font-size="6" fill="#555">Memantau jadual kerja kontraktor dan memastikan pematuhan bajet.</text>
+                        <circle cx="25" cy="165" r="1.5" fill="#555"/><text x="30" y="167" font-family="Arial" font-size="6" fill="#555">Penyediaan laporan analisis data jualan menggunakan Excel.</text>
+                        <circle cx="25" cy="175" r="1.5" fill="#555"/><text x="30" y="177" font-family="Arial" font-size="6" fill="#555">Komunikasi mingguan bersam vendor dan pengarah operasi.</text>
+
+                        <text x="20" y="195" font-family="Arial" font-size="8" font-weight="bold" fill="#333">Junior Admin - Syarikat XYZ (2014 - 2016)</text>
+                        <circle cx="25" cy="205" r="1.5" fill="#555"/><text x="30" y="207" font-family="Arial" font-size="6" fill="#555">Pengurusan pangkalan data pekerja baru dan logistik.</text>
+
+                        <text x="20" y="230" font-family="Arial" font-size="9" font-weight="bold" fill="#111">PENDIDIKAN</text>
+                        <text x="20" y="245" font-family="Arial" font-size="8" font-weight="bold" fill="#333">Ijazah Sarjana Muda Pengurusan Perniagaan</text>
+                        <text x="20" y="255" font-family="Arial" font-size="7" fill="#555">Universiti Malaya (2010 - 2014) | CGPA: 3.85</text>
+                        
+                        <text x="20" y="275" font-family="Arial" font-size="8" font-weight="bold" fill="#333">Diploma Teknologi Maklumat</text>
+                        <text x="20" y="285" font-family="Arial" font-size="7" fill="#555">Politeknik (2007 - 2010) | CGPA: 3.90</text>
+                        
+                        <text x="20" y="315" font-family="Arial" font-size="9" font-weight="bold" fill="#111">KEMAHIRAN</text>
+                        <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">Agile Methodology, Scrum, Risk Management, Jira, Trello, Microsoft Project</text>
+                        <text x="20" y="340" font-family="Arial" font-size="7" fill="#555">Data Analysis, Kepimpinan Pasukan, Komunikasi Berkesan</text>
+                        
+                        <text x="20" y="365" font-family="Arial" font-size="9" font-weight="bold" fill="#111">PENCAPAIAN</text>
+                        <text x="20" y="380" font-family="Arial" font-size="7" fill="#555">- Dinobatkan Top Performer Q3 - TechCorp (2021)</text>
+                        <text x="20" y="390" font-family="Arial" font-size="7" fill="#555">- Selesai kursus Project Management Professional (PMP)</text>
+                    </svg>
+                    <div class="check-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Clean Minimalist</span>
+                </div>
+            </div>
+
+            <!-- 2. Professional -->
+            <div class="template-card locked" data-template="professional">
+                <div class="card-image-box">
+                    <span class="badge-label badge-locked">🔒 Akan Datang</span>
+                    <svg viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="300" height="420" fill="#FFFFFF"/>
+                        <rect x="0" y="0" width="300" height="70" fill="#111827"/>
+                        <text x="25" y="32" font-family="Arial" font-size="16" font-weight="bold" fill="#FFFFFF">NURUL HUDA BINTI ALIAS</text>
+                        <text x="25" y="48" font-family="Arial" font-size="9" fill="#9CA3AF">Digital Marketing Specialist</text>
+                        
+                        <!-- Left Column -->
+                        <rect x="0" y="70" width="100" height="350" fill="#F9FAFB"/>
+                        <text x="15" y="95" font-family="Arial" font-size="8" font-weight="bold" fill="#111827">CONTACT</text>
+                        <text x="15" y="110" font-family="Arial" font-size="6" fill="#4B5563">019-8765432</text>
+                        <text x="15" y="120" font-family="Arial" font-size="6" fill="#4B5563">huda.alias@email.com</text>
+                        <text x="15" y="130" font-family="Arial" font-size="6" fill="#4B5563">Petaling Jaya, Selangor</text>
+                        <text x="15" y="140" font-family="Arial" font-size="6" fill="#4B5563">linkedin.com/in/huda</text>
+                        
+                        <text x="15" y="170" font-family="Arial" font-size="8" font-weight="bold" fill="#111827">KEMAHIRAN</text>
+                        <text x="15" y="185" font-family="Arial" font-size="6" fill="#4B5563">SEO &amp; SEM</text>
+                        <text x="15" y="195" font-family="Arial" font-size="6" fill="#4B5563">Google Ads</text>
+                        <text x="15" y="205" font-family="Arial" font-size="6" fill="#4B5563">Social Media Mgt</text>
+                        <text x="15" y="215" font-family="Arial" font-size="6" fill="#4B5563">Copywriting</text>
+                        <text x="15" y="225" font-family="Arial" font-size="6" fill="#4B5563">Google Analytics</text>
+                        <text x="15" y="235" font-family="Arial" font-size="6" fill="#4B5563">Canva &amp; Photoshop</text>
+                        
+                        <text x="15" y="265" font-family="Arial" font-size="8" font-weight="bold" fill="#111827">BAHASA</text>
+                        <text x="15" y="280" font-family="Arial" font-size="6" fill="#4B5563">Melayu (Native)</text>
+                        <text x="15" y="290" font-family="Arial" font-size="6" fill="#4B5563">Inggeris (Fasih)</text>
+                        <text x="15" y="300" font-family="Arial" font-size="6" fill="#4B5563">Mandarin (Asas)</text>
+
+                        <!-- Right Column -->
+                        <text x="115" y="95" font-family="Arial" font-size="9" font-weight="bold" fill="#111827">PENGALAMAN KERJA</text>
+                        <text x="115" y="115" font-family="Arial" font-size="8" font-weight="bold" fill="#111827">Marketing Exec - WebCorp (2021-Kini)</text>
+                        <circle cx="120" cy="125" r="1.5" fill="#4B5563"/><text x="125" y="127" font-family="Arial" font-size="6" fill="#4B5563">Meningkatkan leads bulanan sebanyak 40%.</text>
+                        <circle cx="120" cy="135" r="1.5" fill="#4B5563"/><text x="125" y="137" font-family="Arial" font-size="6" fill="#4B5563">Menguruskan bajet ads RM10k sebulan.</text>
+                        <circle cx="120" cy="145" r="1.5" fill="#4B5563"/><text x="125" y="147" font-family="Arial" font-size="6" fill="#4B5563">Laksana kempen emel dengan Open Rate 30%.</text>
+                        
+                        <text x="115" y="165" font-family="Arial" font-size="8" font-weight="bold" fill="#111827">Content Creator - MediaSeni (2018-2021)</text>
+                        <circle cx="120" cy="175" r="1.5" fill="#4B5563"/><text x="125" y="177" font-family="Arial" font-size="6" fill="#4B5563">Menghasilkan 20+ video viral Tiktok.</text>
+                        <circle cx="120" cy="185" r="1.5" fill="#4B5563"/><text x="125" y="187" font-family="Arial" font-size="6" fill="#4B5563">Tulis artikel SEO untuk blog klien.</text>
+
+                        <text x="115" y="205" font-family="Arial" font-size="8" font-weight="bold" fill="#111827">Pratikal - Bernama TV (2018)</text>
+                        <circle cx="120" cy="215" r="1.5" fill="#4B5563"/><text x="125" y="217" font-family="Arial" font-size="6" fill="#4B5563">Penyelidikan untuk skrip berita harian.</text>
+
+                        <text x="115" y="250" font-family="Arial" font-size="9" font-weight="bold" fill="#111827">PENDIDIKAN</text>
+                        <text x="115" y="265" font-family="Arial" font-size="8" font-weight="bold" fill="#111827">Ijazah Sarjana Muda Komunikasi Massa</text>
+                        <text x="115" y="275" font-family="Arial" font-size="6" fill="#4B5563">UiTM Shah Alam (2014 - 2018)</text>
+                        
+                        <text x="115" y="305" font-family="Arial" font-size="9" font-weight="bold" fill="#111827">SIJIL PROFESIONAL</text>
+                        <text x="115" y="320" font-family="Arial" font-size="6" fill="#4B5563">- Google Analytics Individual Qualification</text>
+                        <text x="115" y="330" font-family="Arial" font-size="6" fill="#4B5563">- Hubspot Inbound Marketing Certification</text>
+                    </svg>
+                    <div class="check-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Professional</span>
+                </div>
+            </div>
+
+            <!-- 3. Fresh Graduate -->
+            <div class="template-card locked" data-template="fresh-grad">
+                <div class="card-image-box">
+                    <span class="badge-label badge-locked">🔒 Akan Datang</span>
+                    <svg viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs><clipPath id="c2"><circle cx="150" cy="45" r="22"/></clipPath></defs>
+                        <rect width="300" height="420" fill="white"/>
+                        <rect x="0" y="0" width="300" height="5" fill="#3B82F6"/>
+                        
+                        <!-- Realistic Image for Fresh Grad -->
+                        <circle cx="150" cy="45" r="24" fill="#E5E7EB"/>
+                        <image href="https://i.pravatar.cc/150?img=12" x="125" y="20" width="50" height="50" preserveAspectRatio="xMidYMid slice" clip-path="url(#c2)"/>
+
+                        <text x="150" y="85" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#111">SYED AMIRUL AZLAN</text>
+                        <text x="150" y="100" text-anchor="middle" font-family="Arial" font-size="9" fill="#2563EB">Software Engineering Graduate</text>
+                        <text x="150" y="112" text-anchor="middle" font-family="Arial" font-size="6" fill="#555">011-2345678 | amirul.dev@email.com | github.com/amirul</text>
+                        
+                        <line x1="25" y1="125" x2="275" y2="125" stroke="#E5E7EB" stroke-width="1"/>
+
+                        <text x="25" y="145" font-family="Arial" font-size="9" font-weight="bold" fill="#111">OBJEKTIF</text>
+                        <text x="25" y="160" font-family="Arial" font-size="7" fill="#555">Graduan IT berdedikasi mencari peluang membina kerjaya dalam web development.</text>
+                        <text x="25" y="170" font-family="Arial" font-size="7" fill="#555">Fokus pada pembinaan MERN Stack dan pembangunan back-end.</text>
+                        
+                        <text x="25" y="195" font-family="Arial" font-size="9" font-weight="bold" fill="#111">PENDIDIKAN</text>
+                        <text x="25" y="210" font-family="Arial" font-size="8" font-weight="bold" fill="#333">Ijazah Sarjana Muda Sains Komputer (Kejuruteraan Perisian)</text>
+                        <text x="25" y="220" font-family="Arial" font-size="7" fill="#555">Universiti Teknologi Malaysia (UTM) | 2020 - 2024</text>
+                        <text x="25" y="232" font-family="Arial" font-size="7" fill="#3B82F6">CGPA: 3.92 (Anugerah Dekan 6 Semester berturut-turut)</text>
+                        <text x="25" y="242" font-family="Arial" font-size="7" fill="#555">Kelab Catur Komputer (Ahli Jawatankuasa), Skuad Sukarelawan IT.</text>
+
+                        <text x="25" y="270" font-family="Arial" font-size="9" font-weight="bold" fill="#111">KEMAHIRAN TEKNIKAL</text>
+                        <rect x="25" y="280" width="60" height="15" rx="3" fill="#EFF6FF"/><text x="55" y="290" text-anchor="middle" font-family="Arial" font-size="6" fill="#1E3A8A">HTML/CSS</text>
+                        <rect x="90" y="280" width="60" height="15" rx="3" fill="#EFF6FF"/><text x="120" y="290" text-anchor="middle" font-family="Arial" font-size="6" fill="#1E3A8A">JavaScript</text>
+                        <rect x="155" y="280" width="60" height="15" rx="3" fill="#EFF6FF"/><text x="185" y="290" text-anchor="middle" font-family="Arial" font-size="6" fill="#1E3A8A">React.js</text>
+                        <rect x="220" y="280" width="55" height="15" rx="3" fill="#EFF6FF"/><text x="247" y="290" text-anchor="middle" font-family="Arial" font-size="6" fill="#1E3A8A">Node.js</text>
+                        
+                        <rect x="25" y="300" width="60" height="15" rx="3" fill="#EFF6FF"/><text x="55" y="310" text-anchor="middle" font-family="Arial" font-size="6" fill="#1E3A8A">MongoDB</text>
+                        <rect x="90" y="300" width="60" height="15" rx="3" fill="#EFF6FF"/><text x="120" y="310" text-anchor="middle" font-family="Arial" font-size="6" fill="#1E3A8A">ExpressJS</text>
+
+                        <text x="25" y="340" font-family="Arial" font-size="9" font-weight="bold" fill="#111">PROJEK AKHIR TAHUN</text>
+                        <text x="25" y="355" font-family="Arial" font-size="8" font-weight="bold" fill="#333">Sistem Pengurusan Klinik Bersepadu</text>
+                        <circle cx="30" cy="365" r="1.5" fill="#555"/><text x="35" y="367" font-family="Arial" font-size="6" fill="#555">Membangunkan sistem penuh menggunakan MERN stack.</text>
+                        <circle cx="30" cy="375" r="1.5" fill="#555"/><text x="35" y="377" font-family="Arial" font-size="6" fill="#555">Fitur booking temujanji dan log pesakit selamat (JWT).</text>
+                        <circle cx="30" cy="385" r="1.5" fill="#555"/><text x="35" y="387" font-family="Arial" font-size="6" fill="#555">Lulus ujian tekanan trafik dan sedia digunapakai (Production).</text>
+                    </svg>
+                    <div class="check-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Fresh Graduate</span>
+                </div>
+            </div>
+
+            <!-- 4. Kreatif -->
+            <div class="template-card locked" data-template="kreatif">
+                <div class="card-image-box">
+                    <span class="badge-label badge-locked">🔒 Akan Datang</span>
+                    <svg viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs><clipPath id="c3"><circle cx="55" cy="45" r="22"/></clipPath></defs>
+                        <rect width="300" height="420" fill="#FAFAFA"/>
+                        <rect x="0" y="0" width="110" height="420" fill="#10B981"/> 
+                        
+                        <!-- Realistic Sidebar Profile -->
+                        <image href="https://i.pravatar.cc/150?img=9" x="30" y="20" width="50" height="50" preserveAspectRatio="xMidYMid slice" clip-path="url(#c3)"/>
+                        
+                        <text x="55" y="85" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#FFF">SARAH</text>
+                        <text x="55" y="100" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#A7F3D0">LEE</text>
+                        <text x="55" y="115" text-anchor="middle" font-family="Arial" font-size="8" fill="#FFF">UI/UX DESIGNER</text>
+                        
+                        <line x1="20" y1="130" x2="90" y2="130" stroke="#34D399" stroke-width="1"/>
+                        
+                        <text x="20" y="150" font-family="Arial" font-size="8" font-weight="bold" fill="#FFF">CONTACT</text>
+                        <text x="20" y="165" font-family="Arial" font-size="6" fill="#ECFDF5">+6012-345 6789</text>
+                        <text x="20" y="175" font-family="Arial" font-size="6" fill="#ECFDF5">sarah.design@web.com</text>
+                        <text x="20" y="185" font-family="Arial" font-size="6" fill="#ECFDF5">behance.net/sarahlee</text>
+                        <text x="20" y="195" font-family="Arial" font-size="6" fill="#ECFDF5">Subang, Selangor</text>
+                        
+                        <text x="20" y="225" font-family="Arial" font-size="8" font-weight="bold" fill="#FFF">TOOLS</text>
+                        <text x="20" y="240" font-family="Arial" font-size="6" fill="#ECFDF5">Figma</text>
+                        <rect x="20" y="245" width="70" height="2" fill="#047857"/><rect x="20" y="245" width="65" height="2" fill="#FFF"/>
+                        <text x="20" y="260" font-family="Arial" font-size="6" fill="#ECFDF5">Adobe XD</text>
+                        <rect x="20" y="265" width="70" height="2" fill="#047857"/><rect x="20" y="265" width="55" height="2" fill="#FFF"/>
+                        <text x="20" y="280" font-family="Arial" font-size="6" fill="#ECFDF5">Photoshop</text>
+                        <rect x="20" y="285" width="70" height="2" fill="#047857"/><rect x="20" y="285" width="45" height="2" fill="#FFF"/>
+                        <text x="20" y="300" font-family="Arial" font-size="6" fill="#ECFDF5">Illustrator</text>
+                        <rect x="20" y="305" width="70" height="2" fill="#047857"/><rect x="20" y="305" width="50" height="2" fill="#FFF"/>
+                        
+                        <text x="125" y="45" font-family="Arial" font-size="10" font-weight="bold" fill="#111">PROFIL DIRI</text>
+                        <text x="125" y="60" font-family="Arial" font-size="7" fill="#555">Designer yang bersemangat mencipta antaramuka</text>
+                        <text x="125" y="70" font-family="Arial" font-size="7" fill="#555">yang cantik, kemas dan mesra pengguna ke arah</text>
+                        <text x="125" y="80" font-family="Arial" font-size="7" fill="#555">kecekapan navigasi yang optimum.</text>
+                        
+                        <text x="125" y="110" font-family="Arial" font-size="10" font-weight="bold" fill="#111">PENGALAMAN KREATIF</text>
+                        <line x1="125" y1="115" x2="280" y2="115" stroke="#E5E7EB" stroke-width="1"/>
+                        <text x="125" y="130" font-family="Arial" font-size="8" font-weight="bold" fill="#333">Senior UI Designer - CreativeAgency</text>
+                        <text x="125" y="140" font-family="Arial" font-size="6" fill="#10B981">2021 - Present</text>
+                        <text x="125" y="152" font-family="Arial" font-size="6" fill="#555">- Mengetuai rekabentuk UI UX aplikasi perbankan.</text>
+                        <text x="125" y="162" font-family="Arial" font-size="6" fill="#555">- Meningkatkan conversion onboarding sebanyak 25%.</text>
+                        
+                        <text x="125" y="185" font-family="Arial" font-size="8" font-weight="bold" fill="#333">Junior Graphic Designer - DesignStudio</text>
+                        <text x="125" y="195" font-family="Arial" font-size="6" fill="#10B981">2018 - 2021</text>
+                        <text x="125" y="207" font-family="Arial" font-size="6" fill="#555">- Mereka risalah promosi, banner media sosial &amp; logo.</text>
+                        
+                        <text x="125" y="240" font-family="Arial" font-size="10" font-weight="bold" fill="#111">PROJEK UTAMA</text>
+                        <line x1="125" y1="245" x2="280" y2="245" stroke="#E5E7EB" stroke-width="1"/>
+                        <text x="125" y="260" font-family="Arial" font-size="8" font-weight="bold" fill="#333">Redesign Aplikasi E-Dompet "Zollet"</text>
+                        <text x="125" y="270" font-family="Arial" font-size="6" fill="#555">Menyelidik journey map pengguna dan mencipta prototaip Figma.</text>
+                        
+                        <text x="125" y="300" font-family="Arial" font-size="10" font-weight="bold" fill="#111">PENDIDIKAN</text>
+                        <text x="125" y="315" font-family="Arial" font-size="8" font-weight="bold" fill="#333">Ijazah Sarjana Muda Reka Bentuk</text>
+                        <text x="125" y="325" font-family="Arial" font-size="6" fill="#555">Universiti Teknologi MARA (2014 - 2018)</text>
+                    </svg>
+                    <div class="check-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Kreatif</span>
+                </div>
+            </div>
+
+            <!-- 5. Targeted Resume -->
+            <div class="template-card locked" data-template="targeted">
+                <div class="card-image-box">
+                    <span class="badge-label badge-locked">🔒 Akan Datang</span>
+                    <svg viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="300" height="420" fill="white"/>
+                        <text x="150" y="35" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#111">MOHD DANIAL BIN ROSLI</text>
+                        <text x="150" y="55" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#6366F1">TARGET JOB: DATA ANALYST</text>
+                        <text x="150" y="70" text-anchor="middle" font-family="Arial" font-size="7" fill="#555">Subang Jaya | 018-9998888 | danial.data@email.com</text>
+                        <line x1="20" y1="80" x2="280" y2="80" stroke="#000" stroke-width="2"/>
+                        
+                        <text x="20" y="100" font-family="Arial" font-size="9" font-weight="bold" fill="#111">RINGKASAN KELAYAKAN DATA</text>
+                        <circle cx="25" cy="115" r="1.5" fill="#111"/><text x="32" y="117" font-family="Arial" font-size="7" fill="#333">Mahir Python (Pandas) &amp; SQL untuk analisis mendalam.</text>
+                        <circle cx="25" cy="127" r="1.5" fill="#111"/><text x="32" y="129" font-family="Arial" font-size="7" fill="#333">Pengalaman 3 tahun membina dashboard Tableau &amp; PowerBI.</text>
+                        <circle cx="25" cy="139" r="1.5" fill="#111"/><text x="32" y="141" font-family="Arial" font-size="7" fill="#333">Cekap menterjemah corak statistik data menjadi laporan perniagaan.</text>
+                        
+                        <text x="20" y="170" font-family="Arial" font-size="9" font-weight="bold" fill="#111">PENGALAMAN RELEVAN (DATA ANAYLSIS)</text>
+                        <line x1="20" y1="175" x2="280" y2="175" stroke="#E5E7EB" stroke-width="1"/>
+                        <text x="20" y="190" font-family="Arial" font-size="8" font-weight="bold" fill="#111">Data Executive - FinTech Bank Malaysia</text>
+                        <text x="280" y="190" text-anchor="end" font-family="Arial" font-size="7" fill="#555">KL | 2022 - Kini</text>
+                        <circle cx="25" cy="202" r="1.5" fill="#333"/><text x="32" y="204" font-family="Arial" font-size="6" fill="#333">Menganalisa lebih 10 juta rekod transaksi.</text>
+                        <circle cx="25" cy="212" r="1.5" fill="#333"/><text x="32" y="214" font-family="Arial" font-size="6" fill="#333">Mencapai peningkatan 15% ketepatan model prediktif penipuan e-wang.</text>
+                        <circle cx="25" cy="222" r="1.5" fill="#333"/><text x="32" y="224" font-family="Arial" font-size="6" fill="#333">Bekerjasama dengan Data Scientist bagi Machine Learning Pipeline.</text>
+                        
+                        <text x="20" y="245" font-family="Arial" font-size="8" font-weight="bold" fill="#111">Junior Data Analyst - RetailGroup</text>
+                        <text x="280" y="245" text-anchor="end" font-family="Arial" font-size="7" fill="#555">PJ | 2020 - 2022</text>
+                        <circle cx="25" cy="257" r="1.5" fill="#333"/><text x="32" y="259" font-family="Arial" font-size="6" fill="#333">Mengautomasikan laporan jualan mingguan dengan Python yang menjimatkan 10 jam kerja seminggu.</text>
+                        <circle cx="25" cy="267" r="1.5" fill="#333"/><text x="32" y="269" font-family="Arial" font-size="6" fill="#333">Menyelenggara data warehouse (Google BigQuery) untuk kemudahan akses.</text>
+                        
+                        <text x="20" y="300" font-family="Arial" font-size="9" font-weight="bold" fill="#111">KEMAHIRAN TEKNIKAL SPESIFIK</text>
+                        <line x1="20" y1="305" x2="280" y2="305" stroke="#E5E7EB" stroke-width="1"/>
+                        <text x="20" y="320" font-family="Arial" font-size="7" font-weight="bold" fill="#333">Tools Visualisasi:</text><text x="90" y="320" font-family="Arial" font-size="7" fill="#555">Tableau, PowerBI, MS Excel (Advanced), Jupyter</text>
+                        <text x="20" y="330" font-family="Arial" font-size="7" font-weight="bold" fill="#333">Pengekodan Data:</text><text x="90" y="330" font-family="Arial" font-size="7" fill="#555">Python (Pandas, Numpy, Seaborn), SQL, R, Bash</text>
+                        <text x="20" y="340" font-family="Arial" font-size="7" font-weight="bold" fill="#333">Database Mgt:</text><text x="90" y="340" font-family="Arial" font-size="7" fill="#555">PostgreSQL, MySQL, Google BigQuery, MongoDB</text>
+
+                        <text x="20" y="370" font-family="Arial" font-size="9" font-weight="bold" fill="#111">PENDIDIKAN RELEVAN</text>
+                        <text x="20" y="385" font-family="Arial" font-size="7" font-weight="bold" fill="#333">Ijazah Sarjana Muda Sains Data</text>
+                        <text x="20" y="395" font-family="Arial" font-size="7" fill="#555">Universiti Cyberjaya | 2016-2020 | Fokus Subjek: Neural Networks, Data Mining</text>
+                    </svg>
+                    <div class="check-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Targeted</span>
+                </div>
+            </div>
+
+            <!-- 6. Federal / Government -->
+            <div class="template-card locked" data-template="federal">
+                <div class="card-image-box">
+                    <span class="badge-label badge-locked">🔒 Akan Datang</span>
+                    <svg viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="300" height="420" fill="white"/>
+                        <rect x="0" y="0" width="300" height="420" fill="none" stroke="#ccc" stroke-width="2"/>
+                        
+                        <text x="150" y="40" text-anchor="middle" font-family="Times New Roman, serif" font-size="14" font-weight="bold" fill="#000">KHAIRUL ANWAR BIN MUSTAPHA</text>
+                        <text x="150" y="55" text-anchor="middle" font-family="Times New Roman, serif" font-size="8" fill="#000">123 Jalan Merdeka 4, Taman Sentosa, 50000 Kuala Lumpur</text>
+                        <text x="150" y="65" text-anchor="middle" font-family="Times New Roman, serif" font-size="8" fill="#000">013-4567890 | khairul.anwar.m@email.com | KP: 900101-14-5555</text>
+                        <line x1="15" y1="75" x2="285" y2="75" stroke="#000" stroke-width="2"/>
+                        
+                        <text x="15" y="90" font-family="Times New Roman, serif" font-size="9" font-weight="bold" fill="#000">MAKLUMAT PERIBADI</text>
+                        <text x="15" y="105" font-family="Times New Roman, serif" font-size="7" fill="#000">Warganegara: Malaysia                        Agama: Islam</text>
+                        <text x="15" y="115" font-family="Times New Roman, serif" font-size="7" fill="#000">Status Perkahwinan: Bujang              Lesen Memandu: Kelas D</text>
+                        <text x="15" y="125" font-family="Times New Roman, serif" font-size="7" fill="#000">Tarikh Lahir: 1 Januari 1990             Kesihatan: Baik &amp; Memuaskan</text>
+                        
+                        <text x="15" y="150" font-family="Times New Roman, serif" font-size="9" font-weight="bold" fill="#000">KELULUSAN AKADEMIK</text>
+                        <line x1="15" y1="155" x2="285" y2="155" stroke="#000" stroke-width="1"/>
+                        <text x="15" y="170" font-family="Times New Roman, serif" font-size="8" font-weight="bold" fill="#000">Universiti Kebangsaan Malaysia (UKM)</text>
+                        <text x="285" y="170" text-anchor="end" font-family="Times New Roman, serif" font-size="7" fill="#000">Tahun: 2010 - 2014</text>
+                        <text x="15" y="180" font-family="Times New Roman, serif" font-size="7" fill="#000">Ijazah Sarjana Muda Sains Pentadbiran (Kepujian)</text>
+                        <text x="15" y="190" font-family="Times New Roman, serif" font-size="7" fill="#000">CGPA: 3.65 / 4.00</text>
+                        <text x="15" y="200" font-family="Times New Roman, serif" font-size="7" fill="#000">Kolej Matrikulasi (2009 - 2010) - Sains Tulen. CGPA: 3.50</text>
+                        
+                        <text x="15" y="225" font-family="Times New Roman, serif" font-size="9" font-weight="bold" fill="#000">PENGALAMAN KERJA / PERKHIDMATAN</text>
+                        <line x1="15" y1="230" x2="285" y2="230" stroke="#000" stroke-width="1"/>
+                        <text x="15" y="245" font-family="Times New Roman, serif" font-size="8" font-weight="bold" fill="#000">Kementerian Pendidikan Malaysia, Putrajaya</text>
+                        <text x="285" y="245" text-anchor="end" font-family="Times New Roman, serif" font-size="7" fill="#000">Okt 2016 - Kini</text>
+                        <text x="15" y="255" font-family="Times New Roman, serif" font-size="7" font-weight="bold" fill="#000">Jawatan: Pegawai Tadbir (Gred N41)</text>
+                        <text x="15" y="267" font-family="Times New Roman, serif" font-size="7" fill="#000">- Mengurus latihan pengurusan sumber manusia sektor awam.</text>
+                        <text x="15" y="279" font-family="Times New Roman, serif" font-size="7" fill="#000">- Menyediakan bajet tahunan (Anggaran Belanja Mengurus) sekitar RM10 Juta.</text>
+                        <text x="15" y="291" font-family="Times New Roman, serif" font-size="7" fill="#000">- Memastikan fail tatatertib kakitangan diselenggara mengikut akta am Kerajaan.</text>
+                        
+                        <text x="15" y="315" font-family="Times New Roman, serif" font-size="8" font-weight="bold" fill="#000">Lembaga Hasil Dalam Negeri (LHDN)</text>
+                        <text x="285" y="315" text-anchor="end" font-family="Times New Roman, serif" font-size="7" fill="#000">Jan 2015 - Sept 2016</text>
+                        <text x="15" y="325" font-family="Times New Roman, serif" font-size="7" font-weight="bold" fill="#000">Jawatan: Pembantu Maklumat Gred P1</text>
+                        <text x="15" y="337" font-family="Times New Roman, serif" font-size="7" fill="#000">- Membantu orang awam dalam pengurusan e-Filing.</text>
+                        <text x="15" y="349" font-family="Times New Roman, serif" font-size="7" fill="#000">- Mengemas fail taksiran cukai di bahagian rakaman meja hadapan.</text>
+
+                        <text x="15" y="375" font-family="Times New Roman, serif" font-size="9" font-weight="bold" fill="#000">RUJUKAN</text>
+                        <line x1="15" y1="380" x2="285" y2="380" stroke="#000" stroke-width="1"/>
+                        <text x="15" y="395" font-family="Times New Roman, serif" font-size="7" fill="#000">YBhg. Dato' Hashim Ahmad (Pengarah KPM) - Tel: 03-8888 1234</text>
+                        <text x="15" y="405" font-family="Times New Roman, serif" font-size="7" fill="#000">Dr. Aminah Binti Hassan (Pensyarah UKM) - Tel: 03-8921 5555</text>
+                    </svg>
+                    <div class="check-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                </div>
+                <div class="card-info">
+                    <span class="card-label">Federal / Government</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sticky Footer CTA -->
+        <div class="sticky-footer">
+            <button id="btnNext" class="btn btn-primary btn-large btn-next" disabled>
+                Seterusnya
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+    </main>
+
+    <script>
+        const templateCards = document.querySelectorAll('.template-card');
+        const btnNext = document.getElementById('btnNext');
+        let selectedTemplateId = null;
+
+        templateCards.forEach(card => {
+            card.addEventListener('click', () => {
+                if(card.classList.contains('locked')) return; // Ignore locked cards
+                
+                // Remove selected class from all
+                templateCards.forEach(c => c.classList.remove('selected'));
+                
+                // Add selected class to the clicked card
+                card.classList.add('selected');
+                selectedTemplateId = card.getAttribute('data-template');
+                
+                // Enable CTA button
+                btnNext.disabled = false;
+            });
+        });
+
+        btnNext.addEventListener('click', () => {
+            if (selectedTemplateId) {
+                // Save to localStorage
+                localStorage.setItem('selectedTemplate', selectedTemplateId);
+                // Redirect to builder page
+                window.location.href = 'builder.html';
+            }
+        });
+    </script>
+</body>
+</html>

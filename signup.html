@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sertai Resume Maker - Powered by Maukerja</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="auth.js"></script>
+    <style>
+        .auth-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #FFF5F6 0%, #FFFFFF 100%);
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 440px;
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid #FFE5E8;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .auth-header p {
+            color: var(--text-sec);
+            font-size: 0.95rem;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: #F8F9FA;
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.2s;
+            color: var(--text-sec);
+        }
+
+        .auth-tab.active {
+            background: white;
+            color: var(--brand-red);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.9rem 1.25rem;
+            border: 2px solid #F1F3F5;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background: #FAFBFC;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--brand-red);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(238, 60, 77, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1.25rem;
+            top: 2.6rem;
+            cursor: pointer;
+            color: #ADB5BD;
+            font-size: 0.8rem;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        .error-message {
+            background: #FFF5F5;
+            color: #E03131;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            display: none;
+            border-left: 4px solid #F03E3E;
+        }
+
+        .success-message {
+            background: #F4FCE3;
+            color: #2B8A3E;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            display: none;
+            border-left: 4px solid #37B24D;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 50px;
+            border: none;
+            background: var(--brand-red);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 15px rgba(238, 60, 77, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(238, 60, 77, 0.3);
+            background: var(--brand-red-hover);
+        }
+
+        .forgot-password {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--brand-red);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-sec);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            transition: color 0.2s;
+        }
+
+        .back-to-home:hover {
+            color: var(--brand-red);
+        }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 1.5rem;
+                border-radius: 0;
+                box-shadow: none;
+                border: none;
+            }
+            .auth-wrapper {
+                padding: 0;
+                background: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-container" style="width: 100%; max-width: 440px;">
+            <a href="index.html" class="back-to-home">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Kembali ke Laman Utama
+            </a>
+
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="logo" style="justify-content: center; margin-bottom: 1.5rem;">
+                        <div class="logo-icon">R</div>
+                        <div class="logo-text-group" style="text-align: left;">
+                            <span>Resume Maker</span>
+                            <span class="logo-subtitle">Powered by Maukerja</span>
+                        </div>
+                    </div>
+                    <h1 id="formTitle">Sertai Kami</h1>
+                    <p id="formSubtitle">Bina resume profesional anda hari ini.</p>
+                </div>
+
+                <div class="auth-tabs" id="authTabs">
+                    <div class="auth-tab active" onclick="switchTab('signup')">Daftar</div>
+                    <div class="auth-tab" onclick="switchTab('login')">Log Masuk</div>
+                </div>
+
+                <div id="errorBox" class="error-message"></div>
+                <div id="successBox" class="success-message"></div>
+
+                <form id="authForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="identity">Emel atau No. Telefon</label>
+                        <input type="text" id="identity" class="form-control" placeholder="cth: ali@email.com / 0123456789" required>
+                    </div>
+
+                    <div class="form-group" id="passwordGroup">
+                        <label for="password">Kata Laluan</label>
+                        <input type="password" id="password" class="form-control" placeholder="Minimum 8 aksara" required>
+                        <span class="password-toggle" onclick="togglePassword()">LIHAT</span>
+                    </div>
+
+                    <button type="submit" class="auth-btn" id="submitBtn">Daftar Sekarang</button>
+                    
+                    <div id="forgotPwdLink" class="forgot-password" style="display: none;" onclick="showForgotPassword()">
+                        Lupa kata laluan?
+                    </div>
+                </form>
+
+                <div id="resetFlow" style="display: none;">
+                    <div class="form-group">
+                        <label for="resetIdentity">Masukkan Emel/No. Telefon</label>
+                        <input type="text" id="resetIdentity" class="form-control" placeholder="Sila masukkan identiti berdaftar">
+                    </div>
+                    <button class="auth-btn" onclick="handleReset()">Hantar Arahan</button>
+                    <div class="forgot-password" onclick="switchTab('login')">Kembali ke Log Masuk</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMode = 'signup';
+
+        function switchTab(mode) {
+            currentMode = mode;
+            const tabs = document.querySelectorAll('.auth-tab');
+            const submitBtn = document.getElementById('submitBtn');
+            const formTitle = document.getElementById('formTitle');
+            const formSubtitle = document.getElementById('formSubtitle');
+            const forgotPwd = document.getElementById('forgotPwdLink');
+            const passwordGroup = document.getElementById('passwordGroup');
+            const authForm = document.getElementById('authForm');
+            const resetFlow = document.getElementById('resetFlow');
+            const errorBox = document.getElementById('errorBox');
+            const successBox = document.getElementById('successBox');
+
+            errorBox.style.display = 'none';
+            successBox.style.display = 'none';
+            resetFlow.style.display = 'none';
+            authForm.style.display = 'block';
+
+            if (mode === 'signup') {
+                tabs[0].classList.add('active');
+                tabs[1].classList.remove('active');
+                formTitle.innerText = 'Sertai Kami';
+                formSubtitle.innerText = 'Bina resume profesional anda hari ini.';
+                submitBtn.innerText = 'Daftar Sekarang';
+                forgotPwd.style.display = 'none';
+                passwordGroup.style.display = 'block';
+            } else {
+                tabs[1].classList.add('active');
+                tabs[0].classList.remove('active');
+                formTitle.innerText = 'Selamat Kembali';
+                formSubtitle.innerText = 'Teruskan membina kerjaya impian anda.';
+                submitBtn.innerText = 'Log Masuk';
+                forgotPwd.style.display = 'block';
+                passwordGroup.style.display = 'block';
+            }
+        }
+
+        function togglePassword() {
+            const pwd = document.getElementById('password');
+            const toggle = document.querySelector('.password-toggle');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                toggle.innerText = 'SOROK';
+            } else {
+                pwd.type = 'password';
+                toggle.innerText = 'LIHAT';
+            }
+        }
+
+        function showForgotPassword() {
+            document.getElementById('authForm').style.display = 'none';
+            document.getElementById('resetFlow').style.display = 'block';
+            document.getElementById('formTitle').innerText = 'Set Semula Kata Laluan';
+            document.getElementById('formSubtitle').innerText = 'Kami akan menghantar arahan kepada anda.';
+            document.getElementById('errorBox').style.display = 'none';
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            const identity = document.getElementById('identity').value;
+            const password = document.getElementById('password').value;
+            const errorBox = document.getElementById('errorBox');
+            const successBox = document.getElementById('successBox');
+
+            errorBox.style.display = 'none';
+            successBox.style.display = 'none';
+
+            let result;
+            if (currentMode === 'signup') {
+                result = Auth.register(identity, password);
+            } else {
+                result = Auth.login(identity, password);
+            }
+
+            if (result.success) {
+                successBox.innerText = result.message;
+                successBox.style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = 'builder.html';
+                }, 1000);
+            } else {
+                errorBox.innerText = result.message;
+                errorBox.style.display = 'block';
+            }
+        }
+
+        function handleReset() {
+            const id = document.getElementById('resetIdentity').value;
+            const result = Auth.forgotPassword(id);
+            const errorBox = document.getElementById('errorBox');
+            const successBox = document.getElementById('successBox');
+
+            if (result.success) {
+                successBox.innerText = result.message;
+                successBox.style.display = 'block';
+                errorBox.style.display = 'none';
+            } else {
+                errorBox.innerText = result.message;
+                errorBox.style.display = 'block';
+                successBox.style.display = 'none';
+            }
+        }
+
+        // Check if already logged in
+        if (Auth.isAuthenticated()) {
+            window.location.href = 'builder.html';
+        }
+    </script>
+</body>
+</html>

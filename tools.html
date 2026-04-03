@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Checker - Resume Maker</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="auth.js"></script>
+    <style>
+        .tools-page {
+            padding: 4rem 0 8rem;
+        }
+        .tools-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .tools-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .tools-header p {
+            color: var(--text-sec);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .ats-checker-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-soft);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .ats-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.9rem 1.25rem;
+            border: 2px solid #F1F3F5;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.2s;
+            background: #FAFBFC;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--brand-red);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(238, 60, 77, 0.1);
+        }
+        .ats-results {
+            margin-top: 2rem;
+            display: none;
+            border-top: 1px solid var(--border-soft);
+            padding-top: 2rem;
+        }
+        .score-display {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #F1F3F5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--brand-red);
+            border: 10px solid var(--border-soft);
+            position: relative;
+        }
+        .score-info h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .score-info p {
+            color: var(--text-sec);
+            font-size: 0.95rem;
+        }
+        .feedback-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .feedback-item {
+            padding: 1rem;
+            border-radius: 12px;
+            background: #F8F9FA;
+            border: 1px solid var(--border-soft);
+            font-size: 0.9rem;
+        }
+        .feedback-item.good {
+            border-left: 4px solid #10B981;
+        }
+        .feedback-item.bad {
+            border-left: 4px solid #EF4444;
+        }
+        .feedback-item strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+    </style>
+</head>
+<body class="tools-page">
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">R</div>
+            <div class="logo-text-group">
+                <span>Resume Maker</span>
+                <span class="logo-subtitle">Powered by Maukerja</span>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="templates.html">Koleksi resume</a>
+            <a href="tools.html" class="active" style="color: var(--brand-red);">Tools resume</a>
+            <a href="builder.html">Resume builder</a>
+            <a href="signup.html" class="btn btn-dark" id="authNavBtn">Sign up</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="tools-header">
+            <h1>Semak Skor ATS Resume Anda</h1>
+            <p>Sistem kami akan meniru recruiter di Malaysia untuk melihat sejauh mana resume anda boleh melepasi sistem ATS mereka.</p>
+        </div>
+
+        <div class="ats-checker-card">
+            <form class="ats-form" id="atsForm" onsubmit="handleATS(event)">
+                <div class="form-group">
+                    <label>Jawatan Sasaran (cth: Admin, Sales, IT)</label>
+                    <input type="text" id="jobTitle" class="form-control" placeholder="Masukkan jawatan yang anda nak mohon" required>
+                </div>
+                <div class="form-group">
+                    <label>Tuliskan Isi Kandungan Resume Anda (Copy-paste dari Word/PDF)</label>
+                    <textarea id="resumeText" class="form-control" style="min-height: 200px;" placeholder="Tuliskan teks resume anda di sini..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-dark" style="width: 100%; border-radius: 50px; padding: 1rem;">Mula Semak Sekarang</button>
+            </form>
+
+            <div id="atsResults" class="ats-results">
+                <div class="score-display">
+                    <div class="score-circle" id="finalScore">0%</div>
+                    <div class="score-info">
+                        <h2 id="scoreTitle">Skor Resume: Sederhana</h2>
+                        <p id="scoreDesc">Resume anda mempunyai potensi tetapi perlu dibaiki untuk melepasi ATS syarikat besar.</p>
+                    </div>
+                </div>
+
+                <div class="feedback-list" id="feedbackList">
+                    <!-- Feedback items go here -->
+                </div>
+
+                <div style="margin-top: 2rem; text-align: center;">
+                    <a href="builder.html" class="btn btn-primary" style="border-radius: 50px;">Bina Resume Baru (100% Mesra ATS)</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function handleATS(e) {
+            e.preventDefault();
+            const job = document.getElementById('jobTitle').value.toLowerCase();
+            const text = document.getElementById('resumeText').value.toLowerCase();
+            
+            const results = document.getElementById('atsResults');
+            const scoreDisplay = document.getElementById('finalScore');
+            const feedbackBox = document.getElementById('feedbackList');
+            const title = document.getElementById('scoreTitle');
+            const desc = document.getElementById('scoreDesc');
+
+            // REALISTIC ANALYSIS LOGIC
+            let score = 30;
+            let feedback = [];
+
+            // 1. Keyword check
+            const keywords = {
+                'admin': ['microsoft office', 'filing', 'scheduling', 'customer service', 'data entry'],
+                'sales': ['negotiation', 'marketing', 'crm', 'cold calling', 'leads'],
+                'it': ['javascript', 'python', 'sql', 'react', 'cloud', 'git'],
+                'software': ['javascript', 'python', 'sql', 'react', 'cloud', 'git']
+            };
+
+            const relevant = keywords[job] || ['communication', 'teamwork', 'leadership', 'microsoft office'];
+            let matched = relevant.filter(k => text.includes(k));
+            
+            if (matched.length >= 3) {
+                score += 25;
+                feedback.push({ type: 'good', title: 'Kata Kunci (Keywords)', text: `Bagus! Anda menggunakan kata kunci industri yang dicari: ${matched.slice(0,3).join(', ')}.` });
+            } else {
+                feedback.push({ type: 'bad', title: 'Kata Kunci (Keywords)', text: `Kurang kata kunci industri. Cuba tambah perkataan seperti: ${relevant.slice(0,3).join(', ')}.` });
+            }
+
+            // 2. Format check
+            if (text.length > 500) {
+                score += 15;
+                feedback.push({ type: 'good', title: 'Kekemasan Format', text: 'Struktur resume dikesan dengan baik oleh sistem ATS.' });
+            } else {
+                feedback.push({ type: 'bad', title: 'Struktur Pendek', text: 'Isi kandungan terlalu pendek. Recruiter di Malaysia suka huraian kerja yang jelas (bullet points).' });
+            }
+
+            // 3. Section check
+            const sections = ['pengalaman', 'pendidikan', 'kemahiran', 'summary', 'profile', 'education', 'experience', 'skills'];
+            let sectionCount = sections.filter(s => text.includes(s)).length;
+            if (sectionCount >= 4) {
+                score += 10;
+                feedback.push({ type: 'good', title: 'Bahagian (Sections)', text: 'Headings dikesan dengan jelas. Mudah untuk sistem parsing.' });
+            } else {
+                feedback.push({ type: 'bad', title: 'Tiada Tajuk Bahagian', text: 'Gunakan tajuk bahagian yang standard (cth: Pengalaman Kerja, Pendidikan) supaya ATS faham.' });
+            }
+
+            // 4. Bullet point check
+            if (text.includes('•') || text.includes('-') || text.includes('*')) {
+                score += 10;
+                feedback.push({ type: 'good', title: 'Gaya Penulisan', text: 'Bagus! Penggunaan bullet points meningkatkan readability resume anda.' });
+            } else {
+                feedback.push({ type: 'bad', title: 'Gaya Penulisan', text: 'Elakkan menulis dalam bentuk perenggan panjang. Gunakan bullet points untuk setiap tugasan kerja.' });
+            }
+
+            // Cap score at 80% as per request
+            if(score > 80) score = 80;
+
+            // Display
+            results.style.display = 'block';
+            scoreDisplay.innerText = score + '%';
+            
+            if (score >= 70) {
+                title.innerText = "Skor Resume: Sangat Baik";
+                desc.innerText = "Resume anda sudah sangat mesra ATS. Sesuai untuk syarikat GLC atau MNC di Malaysia.";
+            } else if (score >= 50) {
+                title.innerText = "Skor Resume: Sederhana";
+                desc.innerText = "Resume anda mempunyai potensi tetapi perlu dibaiki untuk melepasi ATS.";
+            } else {
+                title.innerText = "Skor Resume: Lemah";
+                desc.innerText = "Resume anda sukar dibaca oleh sistem ATS. Kami sarankan guna template kami.";
+            }
+
+            feedbackBox.innerHTML = feedback.map(f => `
+                <div class="feedback-item ${f.type}">
+                    <strong>${f.type === 'good' ? '✅' : '🔴'} ${f.title}</strong>
+                    <span>${f.text}</span>
+                </div>
+            `).join('');
+
+            // Scroll to results
+            results.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (Auth.isAuthenticated()) {
+                const navBtn = document.getElementById('authNavBtn');
+                navBtn.innerText = 'Bina Resume';
+                navBtn.href = 'builder.html';
+            }
+        });
+    </script>
+</body>
+</html>
